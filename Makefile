@@ -1,0 +1,62 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/02/08 10:37:13 by aquinter          #+#    #+#              #
+#    Updated: 2025/02/08 18:53:51 by aquinter         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME	= cub3d
+
+RED		= \033[0;31m
+GREEN	= \033[0;32m
+NC		= \033[0m
+
+CFLAGS	= -Wall -Werror -Wextra
+DFLAG	= -g3 -fsanitize=address
+CC		= cc
+RM		= rm -f
+
+LIBFT	= libft_v2/libft_v2.a
+LIBFT_PATH	= libft_v2/
+
+MLX42	= MLX42/build/libmlx42.a
+MLX42_PATH	= MLX42/
+
+SRC_DIR		= src/
+
+SRCS	= $(addprefix $(SRC_DIR), 	\
+	main.c							\
+	)
+
+OBJS	= $(SRCS:.c=.o)
+
+all : $(NAME)
+
+$(NAME) : $(OBJS)
+	@make all -sC $(LIBFT_PATH)
+	@cmake $(MLX42_PATH) -B $(MLX42_PATH)/build
+	@make -C $(MLX42_PATH)/build -j4
+	@$(CC) $(CFLAGS) $(OBJS) \
+		-I ../../inc/cub3d.h $(MLX42) -ldl -lglfw -pthread -lm $(LIBFT) $(RLFLAG) $(DFLAG) -o $(NAME)
+	@echo "$(GREEN)Compiling cub3d...$(NC)"
+
+clean:
+	@$(RM) $(OBJS)
+	@make clean -sC $(LIBFT_PATH)
+	@rm -rf $(MLX42_PATH)/build
+	@echo "$(RED)All Objs deleted.$(NC)"
+
+fclean: clean
+	@$(RM) $(NAME)
+	@$(RM) $(LIBFT)
+	@echo "$(RED)Everything deleted.$(NC)"
+
+re: fclean all
+
+.PHONY: all clean fclean re
+.SILENT:
