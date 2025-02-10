@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/08 10:37:13 by aquinter          #+#    #+#              #
-#    Updated: 2025/02/08 18:53:51 by aquinter         ###   ########.fr        #
+#    Updated: 2025/02/10 19:47:41 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ RED		= \033[0;31m
 GREEN	= \033[0;32m
 NC		= \033[0m
 
+CC		= cc
 CFLAGS	= -Wall -Werror -Wextra
 DFLAG	= -g3 -fsanitize=address
-CC		= cc
 RM		= rm -f
 
 LIBFT	= libft_v2/libft_v2.a
@@ -39,17 +39,25 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@make all -sC $(LIBFT_PATH)
-	@cmake $(MLX42_PATH) -B $(MLX42_PATH)/build
-	@make -C $(MLX42_PATH)/build -j4
-	@$(CC) $(CFLAGS) $(OBJS) \
-		-I ../../inc/cub3d.h $(MLX42) -ldl -lglfw -pthread -lm $(LIBFT) $(RLFLAG) $(DFLAG) -o $(NAME)
+	
+	@echo "$(GREEN)Compiling MLX42 library...$(NC)"
+	@cmake $(MLX42_PATH) -B $(MLX42_PATH)/build 1>/dev/null
+	@make -C $(MLX42_PATH)/build -j4 1>/dev/null
+	
 	@echo "$(GREEN)Compiling cub3d...$(NC)"
+	@$(CC) $(CFLAGS) $(OBJS) \
+		-I ../../inc/cub3d.h $(MLX42) -ldl -lglfw -pthread -lm $(LIBFT) -o $(NAME)
+	
+	@echo "$(GREEN)Enjoy!$(NC)"
+
+debug: CFLAGS += $(DFLAG)
+debug: re
 
 clean:
 	@$(RM) $(OBJS)
 	@make clean -sC $(LIBFT_PATH)
 	@rm -rf $(MLX42_PATH)/build
-	@echo "$(RED)All Objs deleted.$(NC)"
+	@echo "$(RED)All objs deleted.$(NC)"
 
 fclean: clean
 	@$(RM) $(NAME)
