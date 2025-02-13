@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Project
-cub3d
+cub3D
 *.swp
 
 # MacOS

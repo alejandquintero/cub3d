@@ -6,11 +6,11 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/08 10:37:13 by aquinter          #+#    #+#              #
-#    Updated: 2025/02/10 19:47:41 by aquinter         ###   ########.fr        #
+#    Updated: 2025/02/10 20:02:34 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= cub3d
+NAME	= cub3D
 
 RED		= \033[0;31m
 GREEN	= \033[0;32m
