@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/08 10:37:13 by aquinter          #+#    #+#              #
-#    Updated: 2025/02/10 20:02:34 by aquinter         ###   ########.fr        #
+#    Updated: 2025/02/13 20:35:22 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ $(NAME) : $(OBJS)
 	@cmake $(MLX42_PATH) -B $(MLX42_PATH)/build 1>/dev/null
 	@make -C $(MLX42_PATH)/build -j4 1>/dev/null
 	
-	@echo "$(GREEN)Compiling cub3d...$(NC)"
+	@echo "$(GREEN)Compiling cub3D...$(NC)"
 	@$(CC) $(CFLAGS) $(OBJS) \
 		-I ../../inc/cub3d.h $(MLX42) -ldl -lglfw -pthread -lm $(LIBFT) -o $(NAME)
 	
