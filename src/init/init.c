@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/02/14 15:02:02 by aquinter         ###   ########.fr       */
+/*   Created: 2025/02/14 14:53:06 by aquinter          #+#    #+#             */
+/*   Updated: 2025/02/14 15:00:50 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "../../inc/cub3d.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <stdbool.h>
-# include "../MLX42/include/MLX42/MLX42.h"
-# include "../libft_v2/inc/libft.h"
-# include "../libft_v2/inc/extra.h"
-# include "../libft_v2/inc/get_next_line.h"
-
-int	init(char *maze_file_path);
-
-#endif
+int	init(char *maze_file_path)
+{
+	printf("%s\n", maze_file_path);
+	return (0);
+}
