@@ -38,7 +38,7 @@ OBJS	= $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@make all -sC $(LIBFT_PATH)
+	@make $(MAKECMDGOALS) -sC $(LIBFT_PATH)
 	
 	@echo "$(GREEN)Compiling MLX42 library...$(NC)"
 	@cmake $(MLX42_PATH) -B $(MLX42_PATH)/build 1>/dev/null
