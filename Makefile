@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/08 10:37:13 by aquinter          #+#    #+#              #
-#    Updated: 2025/02/14 15:00:05 by aquinter         ###   ########.fr        #
+#    Updated: 2025/02/18 19:55:46 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ MLX42_PATH	= MLX42/
 SRC_DIR		= src/
 
 SRCS	= $(addprefix $(SRC_DIR), 	\
-	init/init.c						\
+	parsing/init.c					\
 	main.c							\
 	)
 
