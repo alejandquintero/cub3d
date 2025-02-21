@@ -12,6 +12,20 @@ If you have already cloned the repository without this option, you can initializ
 ```bash
 git submodule update --init --remote
 ```
+
+## Dependencies
+Before compiling, ensure you have the necessary dependencies installed. Run the following command:
+```bash
+sudo apt update && sudo apt install -y build-essential cmake libglfw3 libglfw3-dev libx11-dev xorg-dev
+```
+
+This installs:
+- `build-essential` → C compiler (gcc), make, and essential development tools.
+- `cmake` → Required for building MLX42.
+- `libglfw3 & libglfw3-dev` → Necessary for MLX42.
+- `libx11-dev & xorg-dev` → X11 development libraries for windowing support.
+
+
 ## Compilation
 To compile the project, simply run:
 ```bash
@@ -30,7 +44,9 @@ To fully recompile from scratch:
 ```bash
 make re
 ```
+
 ## Dependencies
 ...
+
 ## Execution
 ...
