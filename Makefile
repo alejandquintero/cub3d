@@ -52,7 +52,7 @@ $(NAME) : $(OBJS)
 	@echo "$(GREEN)Enjoy!$(NC)"
 
 debug: CFLAGS += $(DFLAG)
-debug: re
+debug: $(NAME)
 
 clean:
 	@$(RM) $(OBJS)
