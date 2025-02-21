@@ -12,19 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-static int	is_cub_file(char *file)
-{
-	char	*ptr;
-
-	ptr = ft_strrchr(file, '.');
-	if (ptr && ft_strlen(ptr) == 4)
-	{
-		if (ft_strncmp(ptr, ".cub", ft_strlen(ptr)) == 0)
-			return (true);
-	}
-	return (false);
-}
-
 static void	read_file(int fd)
 {
 	char	*line;
@@ -55,7 +42,7 @@ void	init(char *file)
 {
 	int	fd;
 
-	if (is_cub_file(file) == true)
+	if (check_extension(file, ".cub") == true)
 	{
 		fd = open(file, O_RDONLY);
 		if (fd == -1)
