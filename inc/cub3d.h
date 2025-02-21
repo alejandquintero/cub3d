@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/02/14 15:02:02 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:55:19 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
 # include "../libft_v2/inc/extra.h"
 # include "../libft_v2/inc/get_next_line.h"
 
-int	init(char *maze_file_path);
+void	init(char *maze_file_path);
 
 #endif
