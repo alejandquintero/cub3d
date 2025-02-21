@@ -12,7 +12,7 @@
 
 #include "../../inc/cub3d.h"
 
-int	is_cub_file(char *file)
+static int	is_cub_file(char *file)
 {
 	char	*ptr;
 
@@ -25,7 +25,7 @@ int	is_cub_file(char *file)
 	return (false);
 }
 
-void	read_file(int fd)
+static void	read_file(int fd)
 {
 	char	*line;
 	char	*content;
