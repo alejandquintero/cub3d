@@ -31,6 +31,7 @@ SRC_DIR		= src/
 
 SRCS	= $(addprefix $(SRC_DIR), 	\
 	parsing/parser.c				\
+	free.c							\
 	main.c							\
 	)
 

@@ -23,9 +23,11 @@
 
 typedef struct s_file
 {
-	const char 	*valid_ids[7];
+	const char	*valid_ids[7];
+	char		*content;
 }				t_file;
 
 void	parse_maze(char *maze_path, t_file *file);
+void	free_file(t_file *file);
 
 #endif

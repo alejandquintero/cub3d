@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 14:53:06 by aquinter          #+#    #+#             */
-/*   Updated: 2025/02/20 21:21:35 by aquinter         ###   ########.fr       */
+/*   Created: 2025/02/23 13:01:50 by lgandari          #+#    #+#             */
+/*   Updated: 2025/02/23 13:01:52 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static void	read_file(int fd)
+static void	fill_valid_ids(t_file *file)
+{
+	file->valid_ids[0] = "NO";
+	file->valid_ids[1] = "EA";
+	file->valid_ids[2] = "WE";
+	file->valid_ids[3] = "SO";
+	file->valid_ids[4] = "F";
+	file->valid_ids[5] = "C";
+	file->valid_ids[6] = NULL;
+}
+
+static char	*read_file(int fd)
 {
 	char	*line;
 	char	*content;
@@ -29,30 +40,14 @@ static void	read_file(int fd)
 		}
 		line = get_next_line(fd);
 	}
-	if (content)
-	{
-		printf("%s\n", content);
-		free(content);
-	}
-	else
-		print_error("Error\nNo maze to process\n");
-}
-
-static void fill_valid_ids(t_file *file)
-{
-    file->valid_ids[0] = "NO";
-    file->valid_ids[1] = "EA";
-    file->valid_ids[2] = "WE";
-    file->valid_ids[3] = "SO";
-    file->valid_ids[4] = "F";
-    file->valid_ids[5] = "C";
-    file->valid_ids[6] = NULL;
+	return (content);
 }
 
 void	parse_maze(char *maze_path, t_file *file)
 {
 	int	fd;
 
+	fill_valid_ids(file);
 	if (!check_extension(maze_path, ".cub"))
 		print_error("Error\nInvalid file extension. It must be '.cub'\n");
 	fd = open(maze_path, O_RDONLY);
@@ -61,7 +56,10 @@ void	parse_maze(char *maze_path, t_file *file)
 		perror("Error\nCould not open the file");
 		exit(1);
 	}
-	read_file(fd);
-	fill_valid_ids(file);
+	file->content = read_file(fd);
 	close(fd);
+	if (!file->content || *file->content == '\0')
+		print_error("Error\nNo maze to process\n");
+	else
+		printf("%s\n", file->content);
 }
