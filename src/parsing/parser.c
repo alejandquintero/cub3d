@@ -38,7 +38,7 @@ static void	read_file(int fd)
 		print_error("Error\nNo maze to process\n");
 }
 
-void	init(char *file)
+void	parse_maze(char *file)
 {
 	int	fd;
 

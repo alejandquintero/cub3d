@@ -21,6 +21,6 @@
 # include "../libft_v2/inc/extra.h"
 # include "../libft_v2/inc/get_next_line.h"
 
-void	init(char *maze_file_path);
+void	parse_maze(char *maze_file_path);
 
 #endif

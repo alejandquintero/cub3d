@@ -30,7 +30,7 @@ MLX42_PATH	= MLX42/
 SRC_DIR		= src/
 
 SRCS	= $(addprefix $(SRC_DIR), 	\
-	parsing/init.c					\
+	parsing/parser.c				\
 	main.c							\
 	)
 

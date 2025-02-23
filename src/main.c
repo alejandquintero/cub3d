@@ -19,6 +19,6 @@ int	main(int argc, char **argv)
 		print_error("Error\nUsage ./cub3D \"path_to_the_maze.cub\"\n");
 		return (1);
 	}
-	init(argv[1]);
+	parse_maze(argv[1]);
 	return (0);
 }
