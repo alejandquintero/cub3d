@@ -14,11 +14,14 @@
 
 int	main(int argc, char **argv)
 {
+	t_file	file;
+
+
 	if (argc != 2 || !argv[1][0])
 	{
 		print_error("Error\nUsage ./cub3D \"path_to_the_maze.cub\"\n");
 		return (1);
 	}
-	parse_maze(argv[1]);
+	parse_maze(argv[1], &file);
 	return (0);
 }

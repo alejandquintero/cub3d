@@ -21,6 +21,11 @@
 # include "../libft_v2/inc/extra.h"
 # include "../libft_v2/inc/get_next_line.h"
 
-void	parse_maze(char *maze_file_path);
+typedef struct s_file
+{
+	const char 	*valid_ids[7];
+}				t_file;
+
+void	parse_maze(char *maze_path, t_file *file);
 
 #endif
