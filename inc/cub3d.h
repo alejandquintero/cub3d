@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/02/20 20:55:19 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:30:07 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,22 @@ typedef struct s_file
 {
 	const char	*valid_ids[7];
 	char		*content;
-}				t_file;
+}	t_file;
+
+typedef struct s_cub3d
+{
+	char	**maze;
+	char	*north_tex;
+	char	*south_tex;
+	char	*west_tex;
+	char	*east_tex;
+	int		*floor_rgb;
+	int		*ceil_rgb;
+	int		*player_pos;
+}	t_cub3d;
 
 void	parse_maze(char *maze_path, t_file *file);
 void	free_file(t_file *file);
+bool	extract_metadata(t_file *file);
 
 #endif

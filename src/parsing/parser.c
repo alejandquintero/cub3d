@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 13:01:50 by lgandari          #+#    #+#             */
-/*   Updated: 2025/02/23 13:01:52 by lgandari         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:28:38 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,8 @@ void	parse_maze(char *maze_path, t_file *file)
 	if (!file->content || *file->content == '\0')
 		print_error("Error\nNo maze to process\n");
 	else
+	{
+		extract_metadata(file);
 		printf("%s\n", file->content);
+	}
 }
