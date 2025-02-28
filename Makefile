@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/08 10:37:13 by aquinter          #+#    #+#              #
-#    Updated: 2025/02/27 20:30:43 by aquinter         ###   ########.fr        #
+#    Updated: 2025/02/28 20:30:52 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_DIR		= src/
 SRCS	= $(addprefix $(SRC_DIR), 	\
 	parsing/parser.c				\
 	parsing/extractor.c				\
+	parsing/init.c					\
 	free.c							\
 	main.c							\
 	)

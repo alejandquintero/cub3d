@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:44:39 by aquinter          #+#    #+#             */
-/*   Updated: 2025/02/20 20:54:12 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/02/28 20:27:13 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_file	file;
+	t_cub3d	cub3d;
 
 	file.content = NULL;
 	if (argc != 2 || !argv[1][0])
@@ -22,7 +23,9 @@ int	main(int argc, char **argv)
 		print_error("Error\nUsage ./cub3D \"path_to_the_maze.cub\"\n");
 		return (1);
 	}
-	parse_maze(argv[1], &file);
+	init_cub3d(&cub3d);
+	parse_maze(argv[1], &file); // pasar &cub3d tambien
 	free_file(&file);
+	//free_cub3d(&cub3d);
 	return (0);
 }

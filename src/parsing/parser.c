@@ -14,6 +14,8 @@
 
 static void	fill_valid_ids(t_file *file)
 {
+	if (!file)
+		return ;
 	file->valid_ids[0] = "NO";
 	file->valid_ids[1] = "EA";
 	file->valid_ids[2] = "WE";
