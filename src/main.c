@@ -19,10 +19,7 @@ int	main(int argc, char **argv)
 
 	file.content = NULL;
 	if (argc != 2 || !argv[1][0])
-	{
-		print_error("Error\nUsage ./cub3D \"path_to_the_maze.cub\"\n");
-		return (1);
-	}
+		print_error("Error\nUsage ./cub3D \"path_to_the_maze.cub\"\n", true);
 	init_cub3d(&cub3d);
 	parse_maze(argv[1], &file, &cub3d);
 	free_file(&file);

@@ -71,12 +71,12 @@ bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 		id = extract_id(&cursor);
 		if (!id)
 		{
-			printf("Error\nAn ID was expected.\n");
+			print_error("Error\nAn ID was expected.\n", false);
 			return (false);
 		}
 		if (!is_valid_id(id, file->valid_ids))
 		{
-			printf("Error\nInvalid ID [%s].\n", id);
+			print_error("Error\nInvalid ID.\n", false);
 			free(id);
 			return (false);
 		}
@@ -85,7 +85,7 @@ bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 		value = extract_value(&cursor);
 		if (!value || ft_strlen(value) == 0)
 		{
-			printf("Error\nA value was expected for ID [%s].\n", id);
+			print_error("Error\nA value was expected for ID.\n", false);
 			free(id);
 			free(value);
 			return (false);
