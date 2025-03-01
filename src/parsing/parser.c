@@ -63,8 +63,5 @@ void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d)
 	if (!file->content || *file->content == '\0')
 		print_error("Error\nNo maze to process\n");
 	else
-	{
 		extract_metadata(file, cub3d);
-		printf("%s\n", file->content);
-	}
 }

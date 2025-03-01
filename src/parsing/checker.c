@@ -12,7 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-// Not used yet
 bool	is_valid_id(const char *id, const char **valid_ids)
 {
 	int	i;

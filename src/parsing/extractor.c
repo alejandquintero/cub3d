@@ -37,38 +37,63 @@ char	*extract_id(char **str)
 	return (id);
 }
 
+static char	*extract_value(char **str)
+{
+	char	*value;
+	int		i;
+
+	i = 0;
+	while ((*str)[i] && (*str)[i] != '\n')
+		i++;
+	value = ft_substr(*str, 0, i);
+	*str += i;
+	if (**str == '\n')
+		(*str)++;
+	return (value);
+}
+
 bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 {
-	char	*str;
+	char	*cursor;
+	int		pairs_read;
 	char	*id;
-	char	*id2;
-	char	*id3;
+	char	*value;
 
 	(void)cub3d;
-	str = file->content;
-	id = extract_id(&str);
-	if (!id)
+	cursor = file->content;
+	pairs_read = 0;
+	printf("Content before processing file:\n%s\n", file->content);
+	printf("Content after processing file\n");
+	while (pairs_read < 6)
 	{
-		printf("Error\nAn ID was expected.\n");
-		return (false);
+		while (*cursor && (is_space(*cursor) || *cursor == '\n'))
+			cursor++;
+		id = extract_id(&cursor);
+		if (!id)
+		{
+			printf("Error\nAn ID was expected.\n");
+			return (false);
+		}
+		if (!is_valid_id(id, file->valid_ids))
+		{
+			printf("Error\nInvalid ID [%s].\n", id);
+			free(id);
+			return (false);
+		}
+		while (*cursor && is_space(*cursor))
+			cursor++;
+		value = extract_value(&cursor);
+		if (!value || ft_strlen(value) == 0)
+		{
+			printf("Error\nA value was expected for ID [%s].\n", id);
+			free(id);
+			free(value);
+			return (false);
+		}
+		printf("ID = [%s]; VALUE = [%s]\n", id, value);
+		free(id);
+		free(value);
+		pairs_read++;
 	}
-	printf("ID: [%s]\n", id);
-	free(id);
-	id2 = extract_id(&str);
-	if (!id2)
-	{
-		printf("Error\nAn ID was expected.\n");
-		return (false);
-	}
-	printf("ID2: [%s]\n", id2);
-	free(id2);
-	id3 = extract_id(&str);
-	if (!id3)
-	{
-		printf("Error\nAn ID was expected.\n");
-		return (false);
-	}
-	printf("ID3: [%s]\n", id3);
-	free(id3);
 	return (true);
 }
