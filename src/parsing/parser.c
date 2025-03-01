@@ -45,7 +45,7 @@ static char	*read_file(int fd)
 	return (content);
 }
 
-void	parse_maze(char *maze_path, t_file *file)
+void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d)
 {
 	int	fd;
 
@@ -64,7 +64,7 @@ void	parse_maze(char *maze_path, t_file *file)
 		print_error("Error\nNo maze to process\n");
 	else
 	{
-		extract_metadata(file);
+		extract_metadata(file, cub3d);
 		printf("%s\n", file->content);
 	}
 }

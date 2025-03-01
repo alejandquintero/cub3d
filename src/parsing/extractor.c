@@ -37,13 +37,14 @@ char	*extract_id(char **str)
 	return (id);
 }
 
-bool	extract_metadata(t_file *file)
+bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 {
 	char	*str;
 	char	*id;
 	char	*id2;
 	char	*id3;
 
+	(void)cub3d;
 	str = file->content;
 	id = extract_id(&str);
 	if (!id)

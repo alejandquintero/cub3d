@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_cub3d(&cub3d);
-	parse_maze(argv[1], &file); // pasar &cub3d tambien
+	parse_maze(argv[1], &file, &cub3d);
 	free_file(&file);
 	//free_cub3d(&cub3d);
 	return (0);
