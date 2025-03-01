@@ -44,6 +44,8 @@ void	free_file(t_file *file);
 bool	extract_metadata(t_file *file, t_cub3d *cub3d);
 
 void	init_cub3d(t_cub3d *cub3d);
+
 bool	is_valid_id(const char *id, const char **valid_ids);
+bool	is_valid_texture(const char *path);
 
 #endif

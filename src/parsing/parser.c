@@ -51,7 +51,8 @@ void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d)
 
 	fill_valid_ids(file);
 	if (!check_extension(maze_path, ".cub"))
-		print_error("Error\nInvalid file extension. It must be '.cub'\n", false);
+		print_error("Error\nInvalid file extension. \
+			It must be '.cub'\n", false);
 	fd = open(maze_path, O_RDONLY);
 	if (fd == -1)
 	{
