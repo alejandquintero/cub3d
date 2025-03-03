@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:27:07 by aquinter          #+#    #+#             */
-/*   Updated: 2025/02/27 20:28:27 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/03 23:43:03 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 		free(value);
 		pairs_read++;
 	}
+	is_valid_maze(cursor);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/02/28 20:26:08 by lgandari         ###   ########.fr       */
+/*   Updated: 2025/03/03 23:42:42 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	init_cub3d(t_cub3d *cub3d);
 
 bool	is_valid_id(const char *id, const char **valid_ids);
 bool	is_valid_texture(const char *path);
+bool	is_valid_maze(char *cursor);
 
 #endif
