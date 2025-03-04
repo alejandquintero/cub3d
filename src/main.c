@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 		print_error("Error\nUsage ./cub3D \"path_to_the_maze.cub\"\n", true);
 	init_structs(&cub3d, &file);
 	parse_maze(argv[1], &file, &cub3d);
+	print_cub3d(&cub3d);
 	free_structs(&cub3d, &file);
 	return (0);
 }

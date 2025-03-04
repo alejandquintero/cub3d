@@ -41,6 +41,7 @@ typedef struct s_cub3d
 
 void	init_structs(t_cub3d *cub3d, t_file *file);
 void	free_structs(t_cub3d *cub3d, t_file *file);
+void	print_cub3d(const t_cub3d *cub3d);
 
 void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
 bool	extract_metadata(t_file *file, t_cub3d *cub3d);
