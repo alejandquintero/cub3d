@@ -30,13 +30,14 @@ MLX42_PATH	= MLX42/
 SRC_DIR		= src/
 
 SRCS	= $(addprefix $(SRC_DIR), 	\
-	parsing/parser.c				\
-	parsing/maze_validator.c		\
-	parsing/extractor.c				\
-	parsing/checker.c				\
-	init.c							\
-	free.c							\
 	main.c							\
+	init.c							\
+	utils.c							\
+	free.c							\
+	parsing/parser.c				\
+	parsing/checker.c				\
+	parsing/extractor.c				\
+	parsing/maze_validator.c		\
 	)
 
 OBJS	= $(SRCS:.c=.o)

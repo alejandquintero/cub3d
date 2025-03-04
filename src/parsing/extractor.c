@@ -12,12 +12,7 @@
 
 #include "../../inc/cub3d.h"
 
-bool	is_space(char c)
-{
-	return (c == 32 || (c >= 9 && c <= 13));
-}
-
-char	*extract_id(char **str)
+static char	*extract_id(char **str)
 {
 	char	*id;
 	int		i;

@@ -46,11 +46,8 @@ void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
 bool	extract_metadata(t_file *file, t_cub3d *cub3d);
 
 bool	is_space(char c);
-bool	is_valid_id(const char *id, const char **valid_ids);
-bool	is_valid_texture(const char *path);
-bool	is_valid_rgb_str(const char *str, int *rgb_num);
 bool	is_valid_maze(char *cursor);
-
+bool	is_valid_id(const char *id, const char **valid_ids);
 bool	store_texture(t_cub3d *cub3d, const char *id, char *path);
 bool	store_color(t_cub3d *cub3d, const char *id, char *rgb_str);
 

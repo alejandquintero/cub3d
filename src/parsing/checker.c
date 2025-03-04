@@ -12,21 +12,7 @@
 
 #include "../../inc/cub3d.h"
 
-bool	is_valid_id(const char *id, const char **valid_ids)
-{
-	int	i;
-
-	i = 0;
-	while (valid_ids[i])
-	{
-		if (ft_strcmp(id, valid_ids[i]) == 0)
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
-bool	is_valid_texture(const char *path)
+static bool	is_valid_texture(const char *path)
 {
 	int	fd;
 
@@ -37,7 +23,7 @@ bool	is_valid_texture(const char *path)
 	return (true);
 }
 
-bool	is_valid_rgb_str(const char *str, int *rgb_num)
+static bool	is_valid_rgb_str(const char *str, int *rgb_num)
 {
 	int		i;
 	int		j;
@@ -64,6 +50,20 @@ bool	is_valid_rgb_str(const char *str, int *rgb_num)
 	while (str[i] && is_space(str[i]))
 		i++;
 	return (str[i] == '\0');
+}
+
+bool	is_valid_id(const char *id, const char **valid_ids)
+{
+	int	i;
+
+	i = 0;
+	while (valid_ids[i])
+	{
+		if (ft_strcmp(id, valid_ids[i]) == 0)
+			return (true);
+		i++;
+	}
+	return (false);
 }
 
 bool	store_texture(t_cub3d *cub3d, const char *id, char *path)
