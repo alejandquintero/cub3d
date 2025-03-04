@@ -57,12 +57,8 @@ bool	is_valid_rgb_str(const char *str, int *rgb_num)
 			i++;
 		while (str[i] && is_space(str[i]))
 			i++;
-		if (j < 2)
-		{
-			if (str[i] != ',')
-				return (false);
-			i++;
-		}
+		if (j < 2 && str[i++] != ',')
+			return (false);
 		j++;
 	}
 	while (str[i] && is_space(str[i]))
