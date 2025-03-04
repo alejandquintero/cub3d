@@ -51,4 +51,7 @@ bool	is_valid_texture(const char *path);
 bool	is_valid_rgb_str(const char *str, int *rgb_num);
 bool	is_valid_maze(char *cursor);
 
+bool	store_texture(t_cub3d *cub3d, const char *id, char *path);
+bool	store_color(t_cub3d *cub3d, const char *id, char *rgb_str);
+
 #endif
