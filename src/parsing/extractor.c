@@ -52,87 +52,47 @@ static char	*extract_value(char **str)
 	return (value);
 }
 
-static void print_cub3d(t_cub3d *cub3d)
+static bool	process_metadata_line(char **cursor, t_file *file, t_cub3d *cub3d)
 {
-	printf("\n--- STORED DATA IN t_cub3d ---\n");
-	printf("North Texture: %s\n", cub3d->north_tex ? cub3d->north_tex : "NULL");
-	printf("South Texture: %s\n", cub3d->south_tex ? cub3d->south_tex : "NULL");
-	printf("West Texture: %s\n", cub3d->west_tex ? cub3d->west_tex : "NULL");
-	printf("East Texture: %s\n", cub3d->east_tex ? cub3d->east_tex : "NULL");
-	if (cub3d->floor_rgb)
-		printf("Floor Color: [%d, %d, %d]\n", cub3d->floor_rgb[0], cub3d->floor_rgb[1], cub3d->floor_rgb[2]);
-	else
-		printf("Floor Color: NULL\n");
-	if (cub3d->ceil_rgb)
-		printf("Ceiling Color: [%d, %d, %d]\n", cub3d->ceil_rgb[0], cub3d->ceil_rgb[1], cub3d->ceil_rgb[2]);
-	else
-		printf("Ceiling Color: NULL\n");
-	printf("--- END OF STRUCT DATA ---\n");
+	char	*value;
+	char	*id;
+	bool	success;
+
+	while (**cursor && (is_space(**cursor) || **cursor == '\n'))
+		(*cursor)++;
+	id = extract_id(cursor);
+	if (!id)
+		return (print_error("Error\nAn ID was expected.\n", false), false);
+	if (!is_valid_id(id, file->valid_ids))
+		return (print_error("Error\nInvalid ID.\n", false), free(id), false);
+	while (**cursor && is_space(**cursor))
+		(*cursor)++;
+	value = extract_value(cursor);
+	if (!value || ft_strlen(value) == 0)
+		return (print_error("Error\nA value was expected for ID.\n", false), \
+			free(id), free(value), false);
+	success = false;
+	if (ft_strcmp(id, "NO") == 0 || ft_strcmp(id, "EA") == 0 || \
+		ft_strcmp(id, "WE") == 0 || ft_strcmp(id, "SO") == 0)
+		success = store_texture(cub3d, id, value);
+	else if (ft_strcmp(id, "F") == 0 || ft_strcmp(id, "C") == 0)
+		success = store_color(cub3d, id, value);
+	return (free(id), free(value), success);
 }
 
 bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 {
 	char	*cursor;
-	char	*value;
-	char	*id;
 	int		pairs_read;
-	int		rgb[3];
 
 	cursor = file->content;
 	pairs_read = 0;
-	printf("Content before processing file:\n%s\n", file->content);
-	printf("Content after processing file\n");
 	while (pairs_read < 6)
 	{
-		while (*cursor && (is_space(*cursor) || *cursor == '\n'))
-			cursor++;
-		id = extract_id(&cursor);
-		if (!id)
-			return (print_error("Error\nAn ID was expected.\n", false), false);
-		if (!is_valid_id(id, file->valid_ids))
-			return (print_error("Error\nInvalid ID.\n", false), free(id), false);
-		while (*cursor && is_space(*cursor))
-			cursor++;
-		value = extract_value(&cursor);
-		if (!value || ft_strlen(value) == 0)
-			return (print_error("Error\nA value was expected for ID.\n", false), free(id), free(value), false);
-		if (ft_strcmp(id, "NO") == 0 || ft_strcmp(id, "EA") == 0 || \
-			ft_strcmp(id, "WE") == 0 || ft_strcmp(id, "SO") == 0)
-		{
-			if (!is_valid_texture(value))
-			{
-				free(id);
-				free(value);
-				return (print_error("Error\nInvalid texture path.\n", false), false);
-			}
-			if (ft_strcmp(id, "NO") == 0)
-				cub3d->north_tex = ft_memdup(value, ft_strlen(value) + 1);
-			else if (ft_strcmp(id, "EA") == 0)
-				cub3d->east_tex = ft_memdup(value, ft_strlen(value) + 1);
-			else if (ft_strcmp(id, "WE") == 0)
-				cub3d->west_tex = ft_memdup(value, ft_strlen(value) + 1);
-			else if (ft_strcmp(id, "SO") == 0)
-				cub3d->south_tex = ft_memdup(value, ft_strlen(value) + 1);
-		}
-		else if (ft_strcmp(id, "F") == 0 || ft_strcmp(id, "C") == 0)
-		{
-			if (!is_valid_rgb_str(value, rgb))
-			{
-				free(id);
-				free(value);
-				return (print_error("Error\nInvalid color value.\n", false), false);
-			}
-			if (ft_strcmp(id, "F") == 0)
-				cub3d->floor_rgb = ft_memdup(rgb, sizeof(rgb));
-			else if (ft_strcmp(id, "C") == 0)
-				cub3d->ceil_rgb = ft_memdup(rgb, sizeof(rgb));
-		}
-		printf("ID = [%s]; VALUE = [%s]\n", id, value);
-		free(id);
-		free(value);
+		if (!process_metadata_line(&cursor, file, cub3d))
+			return (false);
 		pairs_read++;
 	}
 	is_valid_maze(cursor);
-	print_cub3d(cub3d);
 	return (true);
 }
