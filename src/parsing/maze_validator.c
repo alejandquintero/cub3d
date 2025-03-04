@@ -75,6 +75,9 @@ bool	is_valid_maze(char *cursor)
 	int		j;
 
 	maze = ft_split(cursor, '\n');
+	if (!maze)
+		return (print_error("Error\nMemory allocation failed.\n", \
+			false), false);
 	i = 0;
 	while (maze[i])
 	{
@@ -92,5 +95,6 @@ bool	is_valid_maze(char *cursor)
 		i++;
 	}
 	printf("Maze valid!\n");
+	free_matrix(maze);
 	return (true);
 }
