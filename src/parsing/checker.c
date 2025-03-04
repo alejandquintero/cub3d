@@ -37,64 +37,35 @@ bool	is_valid_texture(const char *path)
 	return (true);
 }
 
-static int	count_parts(char **parts)
+bool	is_valid_rgb_str(const char *str, int *rgb_num)
 {
-	int	count;
-
-	count = 0;
-	while (parts[count])
-		count++;
-	return (count);
-}
-
-// Not finished (refactor)
-bool	is_valid_rgb(char *rgb_str, int *rgb)
-{
-	char	**parts;
-	char	*trimmed;
-	int		count;
 	int		i;
+	int		j;
 
-	count = 0;
-	if (!rgb_str || !*rgb_str)
-		return (false);
-	parts = ft_split(rgb_str, ',');
-	if (!parts)
-		return (false);
-	if (count_parts(parts) != 3)
+	i = 0;
+	j = 0;
+	while (j < 3)
 	{
-		free_matrix(parts);
-		return (false);
-	}
-	count = 0;
-	while (count < 3)
-	{
-		trimmed = ft_strtrim(parts[i], " \t\n\r\v\f");
-		if (!trimmed)
-		{
-			free_matrix(parts);
-			return (false);
-		}
-		i = 0;
-		while (trimmed[i])
-		{
-			if (!ft_isdigit(trimmed[i]))
-			{
-				free(trimmed);
-				free_matrix(parts);
-				return (false);
-			}
+		while (str[i] && is_space(str[i]))
 			i++;
-		}
-		rgb[i] = ft_atoi(trimmed);
-		free(trimmed);
-		if (rgb[i] < 0 || rgb[i] > 255)
-		{
-			free_matrix(parts);
+		if (!ft_isdigit(str[i]))
 			return (false);
-		}
-		count++;
+		rgb_num[j] = ft_atoi(&str[i]);
+		if (rgb_num[j] < 0 || rgb_num[j] > 255)
+			return (false);
+		while (str[i] && ft_isdigit(str[i]))
+			i++;
+		while (str[i] && is_space(str[i]))
+			i++;
+		if (j < 2)
+		{
+			if (str[i] != ',')
+				return (false);
+			i++;
+		}			
+		j++;
 	}
-	free_matrix(parts);
-	return (true);
+	while (str[i] && is_space(str[i]))
+		i++;
+	return (str[i] == '\0');
 }
