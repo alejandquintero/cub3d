@@ -39,8 +39,10 @@ typedef struct s_cub3d
 	int		*player_pos;
 }	t_cub3d;
 
-void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
 void	free_file(t_file *file);
+void	free_cub3d(t_cub3d *cub3d);
+
+void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
 bool	extract_metadata(t_file *file, t_cub3d *cub3d);
 
 void	init_cub3d(t_cub3d *cub3d);
