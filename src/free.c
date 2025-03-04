@@ -12,7 +12,7 @@
 
 #include "../inc/cub3d.h"
 
-void	free_file(t_file *file)
+static void	free_tfile(t_file *file)
 {
 	if (!file)
 		return ;
@@ -23,7 +23,7 @@ void	free_file(t_file *file)
 	}
 }
 
-void	free_cub3d(t_cub3d *cub3d)
+static void	free_tcub3d(t_cub3d *cub3d)
 {
 	if (!cub3d)
 		return ;
@@ -48,4 +48,10 @@ void	free_cub3d(t_cub3d *cub3d)
 	cub3d->east_tex = NULL;
 	cub3d->floor_rgb = NULL;
 	cub3d->ceil_rgb = NULL;
+}
+
+void	free_structs(t_cub3d *cub3d, t_file *file)
+{
+	free_tfile(file);
+	free_tcub3d(cub3d);
 }

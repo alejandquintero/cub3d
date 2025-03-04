@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "../inc/cub3d.h"
 
-void	init_cub3d(t_cub3d *cub3d)
+static void	init_tcub3d(t_cub3d *cub3d)
 {
 	if (!cub3d)
 		return ;
@@ -24,4 +24,23 @@ void	init_cub3d(t_cub3d *cub3d)
 	cub3d->floor_rgb = NULL;
 	cub3d->ceil_rgb = NULL;
 	cub3d->player_pos = NULL;
+}
+
+static void	init_tfile(t_file *file)
+{
+	if (!file)
+		return ;
+	file->valid_ids[0] = "NO";
+	file->valid_ids[1] = "EA";
+	file->valid_ids[2] = "WE";
+	file->valid_ids[3] = "SO";
+	file->valid_ids[4] = "F";
+	file->valid_ids[5] = "C";
+	file->valid_ids[6] = NULL;
+}
+
+void	init_structs(t_cub3d *cub3d, t_file *file)
+{
+	init_tcub3d(cub3d);
+	init_tfile(file);
 }

@@ -12,19 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-static void	fill_valid_ids(t_file *file)
-{
-	if (!file)
-		return ;
-	file->valid_ids[0] = "NO";
-	file->valid_ids[1] = "EA";
-	file->valid_ids[2] = "WE";
-	file->valid_ids[3] = "SO";
-	file->valid_ids[4] = "F";
-	file->valid_ids[5] = "C";
-	file->valid_ids[6] = NULL;
-}
-
 static char	*read_file(int fd)
 {
 	char	*line;
@@ -49,7 +36,6 @@ void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d)
 {
 	int	fd;
 
-	fill_valid_ids(file);
 	if (!check_extension(maze_path, ".cub"))
 		print_error("Error\nInvalid file extension. \
 			It must be '.cub'\n", false);
