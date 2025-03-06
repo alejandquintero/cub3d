@@ -88,6 +88,7 @@ bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 			return (false);
 		pairs_read++;
 	}
-	is_valid_maze(cursor);
+	if (!extract_maze(cub3d, cursor))
+		return (false);
 	return (true);
 }

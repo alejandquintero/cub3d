@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 20:20:50 by lgandari          #+#    #+#             */
-/*   Updated: 2025/02/28 20:27:27 by lgandari         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:07:55 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_tcub3d(t_cub3d *cub3d)
 	cub3d->east_tex = NULL;
 	cub3d->floor_rgb = NULL;
 	cub3d->ceil_rgb = NULL;
-	cub3d->player_pos = NULL;
+	cub3d->dir_player = '\0';
 }
 
 static void	init_tfile(t_file *file)

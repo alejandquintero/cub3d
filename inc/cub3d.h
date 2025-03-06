@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/03 23:42:42 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/06 23:03:41 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_cub3d
 	char	*east_tex;
 	int		*floor_rgb;
 	int		*ceil_rgb;
-	int		*player_pos;
+	char	dir_player;
 }	t_cub3d;
 
 void	init_structs(t_cub3d *cub3d, t_file *file);
@@ -44,12 +44,16 @@ void	free_structs(t_cub3d *cub3d, t_file *file);
 void	print_cub3d(const t_cub3d *cub3d);
 
 void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
+void	initialize_positions(int positions[8][2], int i, int j);
 bool	extract_metadata(t_file *file, t_cub3d *cub3d);
+bool	extract_maze(t_cub3d *cub3d, char *cursor);
 
 bool	is_space(char c);
-bool	is_valid_maze(char *cursor);
 bool	is_valid_id(const char *id, const char **valid_ids);
 bool	store_texture(t_cub3d *cub3d, const char *id, char *path);
 bool	store_color(t_cub3d *cub3d, const char *id, char *rgb_str);
+bool	is_invalid_char(char c);
+bool	is_player(char c);
+bool	is_allowed_char(char c);
 
 #endif

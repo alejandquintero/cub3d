@@ -46,5 +46,9 @@ void	print_cub3d(const t_cub3d *cub3d)
 	}
 	else
 		printf("Maze: NULL\n");
+	if (cub3d->dir_player)
+		printf("Direction of player: %c\n", cub3d->dir_player);
+	else
+		printf("Direction of player: NULL\n");
 	printf("--- END OF STRUCT DATA ---\n");
 }
