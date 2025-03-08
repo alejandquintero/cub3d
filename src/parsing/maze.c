@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:15:36 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 16:44:28 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:54:52 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ bool	extract_maze(t_cub3d *cub3d, char *cursor)
 		cursor++;
 	}
 	maze = llist_to_array(llist);
+	free_llist(llist);
 	if (!maze)
-		return (free_llist(llist), false);
+		return (false);
 	if (!validate_maze(cub3d, maze))
 		return (free_matrix(maze), false);
 	if (!cub3d->dir_player)
