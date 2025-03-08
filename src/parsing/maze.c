@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:15:36 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 16:57:36 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:22:45 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ bool	validate_maze(t_cub3d *cub3d, char **maze)
 	int	j;
 
 	i = 0;
-	if (ft_arrlen((void **)maze) == 0)
-		return (print_error("Error\nNonexistent maze\n", false), false);
 	while (maze[i])
 	{
 		j = 0;
@@ -78,25 +76,37 @@ bool	validate_maze(t_cub3d *cub3d, char **maze)
 	return (true);
 }
 
-bool	extract_maze(t_cub3d *cub3d, char *cursor)
+t_llist	*build_ttlist(char *cursor)
 {
-	char	**maze;
-	char	*line;
 	t_llist	*llist;
+	char	*line;
 
 	llist = NULL;
-	while (*cursor && *cursor == '\n')
-		cursor++;
 	while (*cursor)
 	{
 		line = extract_line(&cursor);
 		if (!line)
-			return (print_error("Error\nMemory allocation failed\n", \
-				false), free_llist(llist), false);
+			return (free_llist(llist), NULL);
 		if (!append_llist(&llist, line))
-			return (free(line), false);
+			return (free(line), NULL);
 		cursor++;
 	}
+	if (!llist)
+		return (print_error("Error\nNonexistent maze\n", \
+			false), NULL);
+	return (llist);
+}
+
+bool	extract_maze(t_cub3d *cub3d, char *cursor)
+{
+	char	**maze;
+	t_llist	*llist;
+
+	while (*cursor && *cursor == '\n')
+		cursor++;
+	llist = build_ttlist(cursor);
+	if (!llist)
+		return (false);
 	maze = llist_to_array(llist);
 	free_llist(llist);
 	if (!maze)

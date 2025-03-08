@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 15:25:47 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 16:56:58 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:27:05 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ char	*extract_line(char **str)
 	line = ft_substr(*str, 0, i);
 	*str += i;
 	if (!line)
-		return (NULL);
+		return (print_error("Error\nMemory allocation failed\n", \
+			false), NULL);
 	return (line);
 }
 
