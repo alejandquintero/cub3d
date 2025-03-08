@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/06 23:03:41 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/08 15:44:43 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,26 @@ typedef struct s_cub3d
 	char	dir_player;
 }	t_cub3d;
 
+typedef struct s_llist
+{
+	struct  s_llist *next;
+	char			*line;
+}	t_llist;
+
 void	init_structs(t_cub3d *cub3d, t_file *file);
 void	free_structs(t_cub3d *cub3d, t_file *file);
+void	free_llist(t_llist *llist);
 void	print_cub3d(const t_cub3d *cub3d);
 
 void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
 void	initialize_positions(int positions[8][2], int i, int j);
+bool	append_llist(t_llist **llist, char *line);
 bool	extract_metadata(t_file *file, t_cub3d *cub3d);
 bool	extract_maze(t_cub3d *cub3d, char *cursor);
+
+char	**llist_to_array(t_llist *llist);
+
+char	*extract_line(char **str);
 
 bool	is_space(char c);
 bool	is_valid_id(const char *id, const char **valid_ids);
