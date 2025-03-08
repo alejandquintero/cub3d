@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 15:25:47 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 16:47:02 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:56:58 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	append_llist(t_llist **llist, char *line)
 
 static size_t	llist_len(t_llist *llist)
 {
-	t_llist *current;
+	t_llist	*current;
 	int		i;
 
 	i = 0;
@@ -91,8 +91,8 @@ char	*extract_line(char **str)
 
 void	free_llist(t_llist *llist)
 {
-	t_llist *current_next;
-	t_llist *current;
+	t_llist	*current_next;
+	t_llist	*current;
 
 	current = llist;
 	while (current != NULL)

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 15:44:43 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:58:04 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_cub3d
 
 typedef struct s_llist
 {
-	struct  s_llist *next;
+	struct s_llist	*next;
 	char			*line;
 }	t_llist;
 

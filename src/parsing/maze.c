@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:15:36 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 16:54:52 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:57:36 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	validate_maze(t_cub3d *cub3d, char **maze)
 		while (maze[i][j])
 		{
 			if (!is_allowed_char(maze[i][j]))
-				return (print_error("Error\nInvalid character in maze\n",
+				return (print_error("Error\nInvalid character in maze\n", \
 					false), false);
 			if (!is_surrounding_valid(maze, i, j))
 				return (print_error("Error\nMaze not properly enclosed\n", \
