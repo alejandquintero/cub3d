@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/08 10:37:13 by aquinter          #+#    #+#              #
-#    Updated: 2025/03/08 15:46:34 by aquinter         ###   ########.fr        #
+#    Updated: 2025/03/19 20:19:23 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	parsing/maze.c					\
 	parsing/chars.c					\
 	parsing/llist.c					\
+	raycasting/window.c				\
 	)
 
 OBJS	= $(SRCS:.c=.o)

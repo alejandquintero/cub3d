@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:15:36 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 17:22:45 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/20 22:35:16 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ bool	is_surrounding_valid(char **maze, int i, int j)
 	return (true);
 }
 
-bool	handle_player(t_cub3d *cub3d, char dir)
+bool	handle_player(t_cub3d *cub3d, char **maze, int i, int j)
 {
 	if (!cub3d->dir_player)
 	{
-		cub3d->dir_player = dir;
+		cub3d->dir_player = maze[i][j];
+		cub3d->dir_player_x = j;
+		cub3d->dir_player_y = i;
 		return (true);
 	}
 	return (false);
@@ -66,7 +68,7 @@ bool	validate_maze(t_cub3d *cub3d, char **maze)
 			if (!is_surrounding_valid(maze, i, j))
 				return (print_error("Error\nMaze not properly enclosed\n", \
 					false), false);
-			if (is_player(maze[i][j]) && !handle_player(cub3d, maze[i][j]))
+			if (is_player(maze[i][j]) && !handle_player(cub3d, maze, i, j))
 				return (print_error("Error\nOnly one player allowed\n", \
 					false), false);
 			j++;

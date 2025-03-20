@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 16:58:04 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/20 22:43:28 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <math.h>
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft_v2/inc/libft.h"
 # include "../libft_v2/inc/extra.h"
@@ -36,6 +37,8 @@ typedef struct s_cub3d
 	char	*east_tex;
 	int		*floor_rgb;
 	int		*ceil_rgb;
+	int		dir_player_x;
+	int		dir_player_y;
 	char	dir_player;
 }	t_cub3d;
 
@@ -67,5 +70,7 @@ bool	store_color(t_cub3d *cub3d, const char *id, char *rgb_str);
 bool	is_invalid_char(char c);
 bool	is_player(char c);
 bool	is_allowed_char(char c);
+
+bool	open_window(t_cub3d *cub3d);
 
 #endif
