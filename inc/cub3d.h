@@ -22,8 +22,8 @@
 # include "../libft_v2/inc/extra.h"
 # include "../libft_v2/inc/get_next_line.h"
 
-#define WIDTH	1512
-#define HEIGHT	982
+# define WIDTH 1512
+# define HEIGHT 982
 
 typedef struct s_file
 {
@@ -51,7 +51,7 @@ typedef struct s_llist
 	char			*line;
 }	t_llist;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double	pos_x;
 	double	pos_y;
@@ -61,7 +61,7 @@ typedef struct	s_player
 	double	plane_y;
 }	t_player;
 
-typedef struct	s_ray
+typedef struct s_ray
 {
 	double	camera_x;
 	double	ray_dir_x;
