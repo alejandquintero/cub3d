@@ -33,40 +33,44 @@ void	close_on_esc(mlx_key_data_t keydata, void *param)
 	}
 }
 
+static void	init_game(t_game *game, t_cub3d *cub3d)
+{
+	game->pos_x = cub3d->dir_player_x + 0.5;
+	game->pos_y = cub3d->dir_player_y + 0.5;
+	game->dir_y = 0;
+	game->dir_x = -1;
+	game->plane_x = game->dir_y * 0.66;
+	game->plane_y = game->dir_x * 0.66;
+}
+
 bool	open_window(t_cub3d *cub3d)
 {
-	// x and y start position (player)
-	double	pos_x = cub3d->dir_player_x + 0.5;
-	double	pos_y = cub3d->dir_player_y + 0.5;
-
-	// Initial direction vector (W in this case)
-	double	dir_y = 0;
-	double	dir_x = -1;
-
-	// Camera plane, 0.66 is FOV (constant)
-	double	plane_x = dir_y * 0.66;
-	double	plane_y = dir_x * 0.66;
-
-	// Init mlx
-    mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_game		game;
+	
+	init_game(&game, cub3d);
+    mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
     if (!mlx)
 		exit(EXIT_FAILURE);
-
-	// Init image
-	mlx_image_t	*img = mlx_new_image(mlx, WIDTH, HEIGHT);
-
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!img)
+	{
+		mlx_terminate(mlx);
+		exit(EXIT_FAILURE);
+	}
 	// Init raycasting
 	int x = 0;
 	while (x < WIDTH)
 	{
 		// Calculate ray position and direction
 		double	camera_x = 2 * x / (double)WIDTH - 1; // x-coordinate in camera space
-		double	ray_dir_x = dir_x + plane_x * camera_x;
-		double	ray_dir_y = dir_y + plane_y * camera_x;
+		double	ray_dir_x = game.dir_x + game.plane_x * camera_x;
+		double	ray_dir_y = game.dir_y + game.plane_y * camera_x;
 
 		// Which box of the map we're in
-		int	map_x = (int)pos_x;
-		int	map_y = (int)pos_y;
+		int	map_x = (int)game.pos_x;
+		int	map_y = (int)game.pos_y;
 
 		// Length of ray from current position to next x or y-side
 		double	side_dist_x = 0;
@@ -95,22 +99,22 @@ bool	open_window(t_cub3d *cub3d)
 		if (ray_dir_x < 0)
 		{
 			step_x = -1;
-			side_dist_x = (pos_x - map_x) * delta_dist_x;
+			side_dist_x = (game.pos_x - map_x) * delta_dist_x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist_x = (map_x + 1.0 - pos_x) * delta_dist_x;
+			side_dist_x = (map_x + 1.0 - game.pos_x) * delta_dist_x;
 		}
 		if (ray_dir_y < 0)
 		{
 			step_y = -1;
-			side_dist_y = (pos_y - map_y) * delta_dist_y;
+			side_dist_y = (game.pos_y - map_y) * delta_dist_y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist_y = (map_y + 1.0 - pos_y) * delta_dist_y;
+			side_dist_y = (map_y + 1.0 - game.pos_y) * delta_dist_y;
 		}
 		// DDA
 		while (hit == 0)

@@ -48,6 +48,16 @@ typedef struct s_llist
 	char			*line;
 }	t_llist;
 
+typedef struct	s_game
+{
+	double	pos_x;
+	double	pos_y;
+	double	dir_y;
+	double	dir_x;
+	double	plane_x;
+	double	plane_y;
+}	t_game;
+
 void	init_structs(t_cub3d *cub3d, t_file *file);
 void	free_structs(t_cub3d *cub3d, t_file *file);
 void	free_llist(t_llist *llist);
