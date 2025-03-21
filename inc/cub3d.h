@@ -70,6 +70,8 @@ typedef struct	s_ray
 	double	perp_wall_dist;
 	int		step_x;
 	int		step_y;
+	int		map_x;
+	int		map_y;
 }	t_ray;
 
 void	init_structs(t_cub3d *cub3d, t_file *file);

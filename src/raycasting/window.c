@@ -15,12 +15,12 @@
 #define WIDTH 1512
 #define HEIGHT 982
 
-int	get_rgba(int r, int g, int b, int a)
+static int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void	close_on_esc(mlx_key_data_t keydata, void *param)
+static void	close_on_esc(mlx_key_data_t keydata, void *param)
 {
 	mlx_t	*mlx;
 
@@ -56,6 +56,34 @@ static void	update_ray(t_ray *ray, t_game *game, int x)
 		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 	else
 		ray->delta_dist_y = 1e30;
+	ray->map_x = (int)game->pos_x;
+	ray->map_y = (int)game->pos_y;
+}
+
+static int	perform_dda(t_ray *ray, t_cub3d *cub3d)
+{
+	int	hit;
+	int	side;
+
+	hit = 0;
+	while (!hit)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
+			side = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
+			side = 1;
+		}
+		if (cub3d->maze[ray->map_y][ray->map_x] == '1')
+			hit = 1;
+	}
+	return (side);
 }
 
 bool	open_window(t_cub3d *cub3d)
@@ -65,6 +93,7 @@ bool	open_window(t_cub3d *cub3d)
 	t_game		game;
 	t_ray		ray;
 	int			x;
+	int			side;
 
 	init_game(&game, cub3d);
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
@@ -80,52 +109,29 @@ bool	open_window(t_cub3d *cub3d)
 	while (++x < WIDTH)
 	{
 		update_ray(&ray, &game, x);
-		// Which box of the map we're in
-		int	map_x = (int)game.pos_x;
-		int	map_y = (int)game.pos_y;
 		// Calculate step an initial side_dist
 		if (ray.ray_dir_x < 0)
 		{
 			ray.step_x = -1;
-			ray.side_dist_x = (game.pos_x - map_x) * ray.delta_dist_x;
+			ray.side_dist_x = (game.pos_x - ray.map_x) * ray.delta_dist_x;
 		}
 		else
 		{
 			ray.step_x = 1;
-			ray.side_dist_x = (map_x + 1.0 - game.pos_x) * ray.delta_dist_x;
+			ray.side_dist_x = (ray.map_x + 1.0 - game.pos_x) * ray.delta_dist_x;
 		}
 		if (ray.ray_dir_y < 0)
 		{
 			ray.step_y = -1;
-			ray.side_dist_y = (game.pos_y - map_y) * ray.delta_dist_y;
+			ray.side_dist_y = (game.pos_y - ray.map_y) * ray.delta_dist_y;
 		}
 		else
 		{
 			ray.step_y = 1;
-			ray.side_dist_y = (map_y + 1.0 - game.pos_y) * ray.delta_dist_y;
+			ray.side_dist_y = (ray.map_y + 1.0 - game.pos_y) * ray.delta_dist_y;
 		}
 		// DDA
-		int	hit = 0;
-		int	side;
-		while (hit == 0)
-		{
-			// jump to next map square, either in x-direction, or in y-direction
-			if (ray.side_dist_x < ray.side_dist_y)
-			{
-				ray.side_dist_x += ray.delta_dist_x;
-				map_x += ray.step_x;
-				side = 0;
-			}
-			else
-			{
-				ray.side_dist_y += ray.delta_dist_y;
-				map_y += ray.step_y;
-				side = 1;
-			}
-			// Check if ray has hit a wall
-			if (cub3d->maze[map_y][map_x] == '1')
-				hit = 1;
-		}
+		side = perform_dda(&ray, cub3d);
 		// Calculate distance projected on camera direction
 		if (side == 0)
 			ray.perp_wall_dist = ray.side_dist_x - ray.delta_dist_x;
