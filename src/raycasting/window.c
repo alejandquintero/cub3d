@@ -43,11 +43,19 @@ static void	init_game(t_game *game, t_cub3d *cub3d)
 	game->plane_y = game->dir_x * 0.66;
 }
 
-static void	init_ray(t_ray *ray, t_game *game, int x)
+static void	update_ray(t_ray *ray, t_game *game, int x)
 {
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
 	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x;
 	ray->ray_dir_y = game->dir_y + game->plane_y * ray->camera_x;
+	if (ray->ray_dir_x != 0)
+		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+	else
+		ray->delta_dist_x = 1e30;
+	if (ray->ray_dir_y != 0)
+		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+	else
+		ray->delta_dist_y = 1e30;
 }
 
 bool	open_window(t_cub3d *cub3d)
@@ -71,63 +79,47 @@ bool	open_window(t_cub3d *cub3d)
 	x = -1;
 	while (++x < WIDTH)
 	{
-		// Calculate ray position and direction
-		init_ray(&ray, &game, x);
+		update_ray(&ray, &game, x);
 		// Which box of the map we're in
 		int	map_x = (int)game.pos_x;
 		int	map_y = (int)game.pos_y;
-		// Length of ray from current position to next x or y-side
-		double	side_dist_x = 0;
-		double	side_dist_y = 0;
-		// Length of ray from one x or y-side to next x or y-side	
-		double	delta_dist_x  = 1e30;
-		if (ray.ray_dir_x != 0)
-			delta_dist_x = fabs(1 / ray.ray_dir_x);
-		double	delta_dist_y = 1e30;
-		if (ray.ray_dir_y != 0)
-			delta_dist_y = fabs(1 / ray.ray_dir_y);
-		// Perpendicular distance from camera plane to the wall
-		double	perp_wall_dist;
-		// what direction to step in x or y-direction (either +1 or -1)
-		int	step_x;
-		int	step_y;
-		int	hit = 0; // was there a wall hit?
-		int	side; //was a NS or a EW wall hit?
 		// Calculate step an initial side_dist
 		if (ray.ray_dir_x < 0)
 		{
-			step_x = -1;
-			side_dist_x = (game.pos_x - map_x) * delta_dist_x;
+			ray.step_x = -1;
+			ray.side_dist_x = (game.pos_x - map_x) * ray.delta_dist_x;
 		}
 		else
 		{
-			step_x = 1;
-			side_dist_x = (map_x + 1.0 - game.pos_x) * delta_dist_x;
+			ray.step_x = 1;
+			ray.side_dist_x = (map_x + 1.0 - game.pos_x) * ray.delta_dist_x;
 		}
 		if (ray.ray_dir_y < 0)
 		{
-			step_y = -1;
-			side_dist_y = (game.pos_y - map_y) * delta_dist_y;
+			ray.step_y = -1;
+			ray.side_dist_y = (game.pos_y - map_y) * ray.delta_dist_y;
 		}
 		else
 		{
-			step_y = 1;
-			side_dist_y = (map_y + 1.0 - game.pos_y) * delta_dist_y;
+			ray.step_y = 1;
+			ray.side_dist_y = (map_y + 1.0 - game.pos_y) * ray.delta_dist_y;
 		}
 		// DDA
+		int	hit = 0;
+		int	side;
 		while (hit == 0)
 		{
 			// jump to next map square, either in x-direction, or in y-direction
-			if (side_dist_x < side_dist_y)
+			if (ray.side_dist_x < ray.side_dist_y)
 			{
-				side_dist_x += delta_dist_x;
-				map_x += step_x;
+				ray.side_dist_x += ray.delta_dist_x;
+				map_x += ray.step_x;
 				side = 0;
 			}
 			else
 			{
-				side_dist_y += delta_dist_y;
-				map_y += step_y;
+				ray.side_dist_y += ray.delta_dist_y;
+				map_y += ray.step_y;
 				side = 1;
 			}
 			// Check if ray has hit a wall
@@ -136,11 +128,11 @@ bool	open_window(t_cub3d *cub3d)
 		}
 		// Calculate distance projected on camera direction
 		if (side == 0)
-			perp_wall_dist = side_dist_x - delta_dist_x;
+			ray.perp_wall_dist = ray.side_dist_x - ray.delta_dist_x;
 		else
-			perp_wall_dist = side_dist_y - delta_dist_y;
+			ray.perp_wall_dist = ray.side_dist_y - ray.delta_dist_y;
 		// Calculate height of line to draw on screen
-		int	line_height = (int)(HEIGHT / perp_wall_dist);
+		int	line_height = (int)(HEIGHT / ray.perp_wall_dist);
 		// Calculate lowest and highest pixel to fill in current stripe
 		int	draw_start = -line_height / 2 + HEIGHT / 2;
 		if (draw_start < 0)
