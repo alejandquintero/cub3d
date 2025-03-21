@@ -33,6 +33,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	main.c							\
 	init.c							\
 	utils.c							\
+	print_utils.c					\
 	free.c							\
 	parsing/parser.c				\
 	parsing/checker.c				\

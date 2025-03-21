@@ -20,6 +20,19 @@ int	get_rgba(int r, int g, int b, int a)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
+void	close_on_esc(mlx_key_data_t keydata, void *param)
+{
+	mlx_t	*mlx;
+
+	mlx = NULL;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
+		mlx = (mlx_t *)param;
+		mlx_terminate(mlx);
+		exit(EXIT_SUCCESS);
+	}
+}
+
 bool	open_window(t_cub3d *cub3d)
 {
 	// x and y start position (player)
@@ -164,7 +177,7 @@ bool	open_window(t_cub3d *cub3d)
 		x++;
 	}
 	mlx_image_to_window(mlx, img, 0, 0);
+	mlx_key_hook(mlx, close_on_esc, mlx);
     mlx_loop(mlx);
-    mlx_terminate(mlx);
     return (true);
 }
