@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   window.c										   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: aquinter <aquinter@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2025/03/19 20:16:49 by aquinter		  #+#	#+#			 */
-/*   Updated: 2025/03/20 22:50:31 by aquinter		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   window.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/21 17:38:45 by aquinter          #+#    #+#             */
+/*   Updated: 2025/03/21 17:38:47 by aquinter         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
@@ -86,6 +86,58 @@ static int	perform_dda(t_ray *ray, t_cub3d *cub3d)
 	return (side);
 }
 
+static void	setup_ray_direction_steps(t_ray *ray, t_game *game)
+{
+	if (ray->ray_dir_x < 0)
+	{
+		ray->step_x = -1;
+		ray->side_dist_x = (game->pos_x - ray->map_x) * ray->delta_dist_x;
+	}
+	else
+	{
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - game->pos_x) * ray->delta_dist_x;
+	}
+	if (ray->ray_dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->side_dist_y = (game->pos_y - ray->map_y) * ray->delta_dist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - game->pos_y) * ray->delta_dist_y;
+	}
+}
+
+static void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist)
+{
+	int	line_height;
+	int	draw_start;
+	int	draw_end;
+	int	y;
+	int	opacity;
+
+	line_height = (int)(HEIGHT / perp_wall_dist);
+	draw_start = -line_height / 2 + HEIGHT / 2;
+	draw_end = line_height / 2 + HEIGHT / 2;
+	if (draw_start < 0)
+		draw_start = 0;
+	if (draw_end >= HEIGHT)
+		draw_end = HEIGHT - 1;
+	if (side == 1)
+		opacity = 128;
+	else
+		opacity = 255;
+	y = 0;
+	while (y < draw_start)
+		mlx_put_pixel(img, x, y++, get_rgba(173, 216, 230, 255));
+	while (y < draw_end)
+		mlx_put_pixel(img, x, y++, get_rgba(169, 169, 169, opacity));
+	while (y < HEIGHT)
+		mlx_put_pixel(img, x, y++, get_rgba(152, 251, 152, 255));
+}
+
 bool	open_window(t_cub3d *cub3d)
 {
 	mlx_t		*mlx;
@@ -109,66 +161,13 @@ bool	open_window(t_cub3d *cub3d)
 	while (++x < WIDTH)
 	{
 		update_ray(&ray, &game, x);
-		// Calculate step an initial side_dist
-		if (ray.ray_dir_x < 0)
-		{
-			ray.step_x = -1;
-			ray.side_dist_x = (game.pos_x - ray.map_x) * ray.delta_dist_x;
-		}
-		else
-		{
-			ray.step_x = 1;
-			ray.side_dist_x = (ray.map_x + 1.0 - game.pos_x) * ray.delta_dist_x;
-		}
-		if (ray.ray_dir_y < 0)
-		{
-			ray.step_y = -1;
-			ray.side_dist_y = (game.pos_y - ray.map_y) * ray.delta_dist_y;
-		}
-		else
-		{
-			ray.step_y = 1;
-			ray.side_dist_y = (ray.map_y + 1.0 - game.pos_y) * ray.delta_dist_y;
-		}
-		// DDA
+		setup_ray_direction_steps(&ray, &game);
 		side = perform_dda(&ray, cub3d);
-		// Calculate distance projected on camera direction
 		if (side == 0)
 			ray.perp_wall_dist = ray.side_dist_x - ray.delta_dist_x;
 		else
 			ray.perp_wall_dist = ray.side_dist_y - ray.delta_dist_y;
-		// Calculate height of line to draw on screen
-		int	line_height = (int)(HEIGHT / ray.perp_wall_dist);
-		// Calculate lowest and highest pixel to fill in current stripe
-		int	draw_start = -line_height / 2 + HEIGHT / 2;
-		if (draw_start < 0)
-			draw_start = 0;
-		int	draw_end = line_height / 2 + HEIGHT / 2;
-		if (draw_end >= HEIGHT)
-			draw_end = HEIGHT - 1;
-		// Print line
-		int y = 0;
-		int opacity = 255;
-		if (side == 1)
-			opacity = opacity / 2;
-		// Ceiling
-		while (y < draw_start)
-		{
-			mlx_put_pixel(img, x, y, get_rgba(173, 216, 230, 255));
-			y++;
-		}
-		// Walls
-		while (y < draw_end)
-		{
-			mlx_put_pixel(img, x, y, get_rgba(169, 169, 169, opacity));
-			y++;
-		}
-		// Floor
-		while (y < HEIGHT)
-		{
-			mlx_put_pixel(img, x, y, get_rgba(152, 251, 152, 255));
-			y++;
-		}
+		render_col(img, x, side, ray.perp_wall_dist);
 	}
 	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_key_hook(mlx, close_on_esc, mlx);
