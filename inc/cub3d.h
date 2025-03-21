@@ -58,6 +58,13 @@ typedef struct	s_game
 	double	plane_y;
 }	t_game;
 
+typedef struct	s_ray
+{
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+}	t_ray;
+
 void	init_structs(t_cub3d *cub3d, t_file *file);
 void	free_structs(t_cub3d *cub3d, t_file *file);
 void	free_llist(t_llist *llist);

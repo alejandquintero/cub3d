@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 20:16:49 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/20 22:50:31 by aquinter         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   window.c										   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: aquinter <aquinter@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/19 20:16:49 by aquinter		  #+#	#+#			 */
+/*   Updated: 2025/03/20 22:50:31 by aquinter		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
@@ -43,15 +43,24 @@ static void	init_game(t_game *game, t_cub3d *cub3d)
 	game->plane_y = game->dir_x * 0.66;
 }
 
+static void	init_ray(t_ray *ray, t_game *game, int x)
+{
+	ray->camera_x = 2 * x / (double)WIDTH - 1;
+	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x;
+	ray->ray_dir_y = game->dir_y + game->plane_y * ray->camera_x;
+}
+
 bool	open_window(t_cub3d *cub3d)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_game		game;
-	
+	t_ray		ray;
+	int			x;
+
 	init_game(&game, cub3d);
-    mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-    if (!mlx)
+	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+	if (!mlx)
 		exit(EXIT_FAILURE);
 	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (!img)
@@ -59,44 +68,33 @@ bool	open_window(t_cub3d *cub3d)
 		mlx_terminate(mlx);
 		exit(EXIT_FAILURE);
 	}
-	// Init raycasting
-	int x = 0;
-	while (x < WIDTH)
+	x = -1;
+	while (++x < WIDTH)
 	{
 		// Calculate ray position and direction
-		double	camera_x = 2 * x / (double)WIDTH - 1; // x-coordinate in camera space
-		double	ray_dir_x = game.dir_x + game.plane_x * camera_x;
-		double	ray_dir_y = game.dir_y + game.plane_y * camera_x;
-
+		init_ray(&ray, &game, x);
 		// Which box of the map we're in
 		int	map_x = (int)game.pos_x;
 		int	map_y = (int)game.pos_y;
-
 		// Length of ray from current position to next x or y-side
 		double	side_dist_x = 0;
 		double	side_dist_y = 0;
-
 		// Length of ray from one x or y-side to next x or y-side	
 		double	delta_dist_x  = 1e30;
-		if (ray_dir_x != 0)
-			delta_dist_x = fabs(1 / ray_dir_x);
-
+		if (ray.ray_dir_x != 0)
+			delta_dist_x = fabs(1 / ray.ray_dir_x);
 		double	delta_dist_y = 1e30;
-		if (ray_dir_y != 0)
-			delta_dist_y = fabs(1 / ray_dir_y);
-
+		if (ray.ray_dir_y != 0)
+			delta_dist_y = fabs(1 / ray.ray_dir_y);
 		// Perpendicular distance from camera plane to the wall
 		double	perp_wall_dist;
-
 		// what direction to step in x or y-direction (either +1 or -1)
 		int	step_x;
 		int	step_y;
-
 		int	hit = 0; // was there a wall hit?
 		int	side; //was a NS or a EW wall hit?
-
 		// Calculate step an initial side_dist
-		if (ray_dir_x < 0)
+		if (ray.ray_dir_x < 0)
 		{
 			step_x = -1;
 			side_dist_x = (game.pos_x - map_x) * delta_dist_x;
@@ -106,7 +104,7 @@ bool	open_window(t_cub3d *cub3d)
 			step_x = 1;
 			side_dist_x = (map_x + 1.0 - game.pos_x) * delta_dist_x;
 		}
-		if (ray_dir_y < 0)
+		if (ray.ray_dir_y < 0)
 		{
 			step_y = -1;
 			side_dist_y = (game.pos_y - map_y) * delta_dist_y;
@@ -141,25 +139,20 @@ bool	open_window(t_cub3d *cub3d)
 			perp_wall_dist = side_dist_x - delta_dist_x;
 		else
 			perp_wall_dist = side_dist_y - delta_dist_y;
-
 		// Calculate height of line to draw on screen
 		int	line_height = (int)(HEIGHT / perp_wall_dist);
-
 		// Calculate lowest and highest pixel to fill in current stripe
 		int	draw_start = -line_height / 2 + HEIGHT / 2;
 		if (draw_start < 0)
 			draw_start = 0;
-
 		int	draw_end = line_height / 2 + HEIGHT / 2;
 		if (draw_end >= HEIGHT)
 			draw_end = HEIGHT - 1;
-
 		// Print line
 		int y = 0;
 		int opacity = 255;
 		if (side == 1)
 			opacity = opacity / 2;
-
 		// Ceiling
 		while (y < draw_start)
 		{
@@ -178,10 +171,9 @@ bool	open_window(t_cub3d *cub3d)
 			mlx_put_pixel(img, x, y, get_rgba(152, 251, 152, 255));
 			y++;
 		}
-		x++;
 	}
 	mlx_image_to_window(mlx, img, 0, 0);
 	mlx_key_hook(mlx, close_on_esc, mlx);
-    mlx_loop(mlx);
-    return (true);
+	mlx_loop(mlx);
+	return (true);
 }
