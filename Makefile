@@ -32,8 +32,6 @@ SRC_DIR		= src/
 SRCS	= $(addprefix $(SRC_DIR), 	\
 	main.c							\
 	init.c							\
-	utils.c							\
-	print_utils.c					\
 	free.c							\
 	parsing/parser.c				\
 	parsing/checker.c				\
@@ -41,6 +39,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	parsing/maze.c					\
 	parsing/chars.c					\
 	parsing/llist.c					\
+	parsing/print_utils.c			\
 	raycasting/window.c				\
 	)
 

@@ -6,11 +6,11 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:01:53 by lgandari          #+#    #+#             */
-/*   Updated: 2025/03/21 16:01:56 by lgandari         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:47:43 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "../../inc/cub3d.h"
 
 static void	print_texture(const char *name, const char *texture)
 {

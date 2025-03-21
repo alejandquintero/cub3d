@@ -46,3 +46,8 @@ void	initialize_positions(int positions[8][2], int i, int j)
 	positions[7][0] = i + 1;
 	positions[7][1] = j + 1;
 }
+
+bool	is_space(char c)
+{
+	return (c == 32 || (c >= 9 && c <= 13));
+}
