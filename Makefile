@@ -41,6 +41,9 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	parsing/llist.c					\
 	parsing/print_utils.c			\
 	raycasting/window.c				\
+	raycasting/hooks.c				\
+	raycasting/render.c				\
+	raycasting/raycasting.c			\
 	)
 
 OBJS	= $(SRCS:.c=.o)

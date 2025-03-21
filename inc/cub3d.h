@@ -22,6 +22,9 @@
 # include "../libft_v2/inc/extra.h"
 # include "../libft_v2/inc/get_next_line.h"
 
+#define WIDTH	1512
+#define HEIGHT	982
+
 typedef struct s_file
 {
 	const char	*valid_ids[7];
@@ -98,5 +101,12 @@ bool	is_player(char c);
 bool	is_allowed_char(char c);
 
 bool	open_window(t_cub3d *cub3d);
+
+void	close_on_esc(mlx_key_data_t keydata, void *param);
+
+int		get_rgba(int r, int g, int b, int a);
+void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist);
+
+void	raycasting_engine(t_player *game, t_cub3d *cub3d, mlx_image_t *img);
 
 #endif
