@@ -48,7 +48,7 @@ typedef struct s_llist
 	char			*line;
 }	t_llist;
 
-typedef struct	s_game
+typedef struct	s_player
 {
 	double	pos_x;
 	double	pos_y;
@@ -56,7 +56,7 @@ typedef struct	s_game
 	double	dir_x;
 	double	plane_x;
 	double	plane_y;
-}	t_game;
+}	t_player;
 
 typedef struct	s_ray
 {

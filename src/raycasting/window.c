@@ -33,7 +33,7 @@ static void	close_on_esc(mlx_key_data_t keydata, void *param)
 	}
 }
 
-static void	init_game(t_game *game, t_cub3d *cub3d)
+static void	init_player(t_player *game, t_cub3d *cub3d)
 {
 	game->pos_x = cub3d->dir_player_x + 0.5;
 	game->pos_y = cub3d->dir_player_y + 0.5;
@@ -43,7 +43,7 @@ static void	init_game(t_game *game, t_cub3d *cub3d)
 	game->plane_y = game->dir_x * 0.66;
 }
 
-static void	update_ray(t_ray *ray, t_game *game, int x)
+static void	update_ray(t_ray *ray, t_player *game, int x)
 {
 	ray->camera_x = 2 * x / (double)WIDTH - 1;
 	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x;
@@ -86,7 +86,7 @@ static int	perform_dda(t_ray *ray, t_cub3d *cub3d)
 	return (side);
 }
 
-static void	setup_ray_direction_steps(t_ray *ray, t_game *game)
+static void	setup_ray_direction_steps(t_ray *ray, t_player *game)
 {
 	if (ray->ray_dir_x < 0)
 	{
@@ -142,12 +142,12 @@ bool	open_window(t_cub3d *cub3d)
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
-	t_game		game;
+	t_player		game;
 	t_ray		ray;
 	int			x;
 	int			side;
 
-	init_game(&game, cub3d);
+	init_player(&game, cub3d);
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (!mlx)
 		exit(EXIT_FAILURE);
