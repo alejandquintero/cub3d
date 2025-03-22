@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:13:55 by lgandari          #+#    #+#             */
-/*   Updated: 2025/03/21 18:13:57 by lgandari         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:27:12 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,14 @@ void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist)
 		mlx_put_pixel(img, x, y++, get_rgba(169, 169, 169, opacity));
 	while (y < HEIGHT)
 		mlx_put_pixel(img, x, y++, get_rgba(152, 251, 152, 255));
+}
+
+void	render_view(void *param)
+{
+	t_structs	*s;
+
+	s = (t_structs *)param;
+	raycasting_engine(s->game, s->cub3d, s->img);
+	// bind_keys();
+	mlx_key_hook(s->mlx, close_on_esc, s->mlx);
 }

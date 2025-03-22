@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:16:05 by lgandari          #+#    #+#             */
-/*   Updated: 2025/03/22 14:05:03 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:27:50 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,22 @@ static void	setup_ray_direction_steps(t_ray *ray, t_player *game)
 	}
 }
 
-void	raycasting_engine(void *param)
+void	raycasting_engine(t_player *game, t_cub3d *cub3d, mlx_image_t *img)
 {
 	int			x;
 	int			side;
 	t_ray		ray;
-	t_structs	*s;
 
 	x = -1;
-	s = (t_structs *)param;
 	while (++x < WIDTH)
 	{
-		update_ray(&ray, s->game, x);
-		setup_ray_direction_steps(&ray, s->game);
-		side = perform_dda(&ray, s->cub3d);
+		update_ray(&ray, game, x);
+		setup_ray_direction_steps(&ray, game);
+		side = perform_dda(&ray, cub3d);
 		if (side == 0)
 			ray.perp_wall_dist = ray.side_dist_x - ray.delta_dist_x;
 		else
 			ray.perp_wall_dist = ray.side_dist_y - ray.delta_dist_y;
-		render_col(s->img, x, side, ray.perp_wall_dist);
+		render_col(img, x, side, ray.perp_wall_dist);
 	}
-	mlx_key_hook(s->mlx, close_on_esc, s->mlx);
-	mlx_image_to_window(s->mlx, s->img, 0, 0);
 }

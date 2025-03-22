@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/22 13:58:37 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:28:02 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,9 @@ bool	open_window(t_cub3d *cub3d);
 void	close_on_esc(mlx_key_data_t keydata, void *param);
 
 int		get_rgba(int r, int g, int b, int a);
+void	render_view(void *param);
 void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist);
 
-void	raycasting_engine(void *param);
+void	raycasting_engine(t_player *game, t_cub3d *cub3d, mlx_image_t *img);
 
 #endif
