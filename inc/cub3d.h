@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/22 14:28:02 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:27:15 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # define WIDTH 1512
 # define HEIGHT 982
+# define MOVE_SPEED 0.10
 
 typedef struct s_file
 {
@@ -81,6 +82,7 @@ typedef struct	s_structs
 {
 	struct s_cub3d	*cub3d;
 	struct s_player	*game;
+	struct s_ray	*ray;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 }	t_structs;
@@ -110,12 +112,15 @@ bool	is_allowed_char(char c);
 
 bool	open_window(t_cub3d *cub3d);
 
-void	close_on_esc(mlx_key_data_t keydata, void *param);
+void	bind_keys(mlx_key_data_t keydata, void *param);
 
 int		get_rgba(int r, int g, int b, int a);
 void	render_view(void *param);
 void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist);
 
-void	raycasting_engine(t_player *game, t_cub3d *cub3d, mlx_image_t *img);
+void	raycasting_engine(t_structs *s);
+
+void	move_x(char **maze, t_player *game, bool forward);
+void	move_y(char **maze, t_player *game, bool left);
 
 #endif

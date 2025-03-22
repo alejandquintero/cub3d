@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:13:55 by lgandari          #+#    #+#             */
-/*   Updated: 2025/03/22 14:27:12 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:15:12 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,14 @@ void	render_view(void *param)
 	t_structs	*s;
 
 	s = (t_structs *)param;
-	raycasting_engine(s->game, s->cub3d, s->img);
-	// bind_keys();
-	mlx_key_hook(s->mlx, close_on_esc, s->mlx);
+	mlx_delete_image(s->mlx, s->img);
+	s->img = mlx_new_image(s->mlx, WIDTH, HEIGHT);
+	if (!s->img)
+	{
+		mlx_terminate(s->mlx);
+		exit(EXIT_FAILURE);
+	}
+	raycasting_engine(s);
+	mlx_image_to_window(s->mlx, s->img, 0, 0);
+	mlx_key_hook(s->mlx, bind_keys, s);
 }
