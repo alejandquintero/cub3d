@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/22 16:27:15 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:54:22 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define WIDTH 1512
 # define HEIGHT 982
-# define MOVE_SPEED 0.10
+# define MOVE_SPEED 0.1
 
 typedef struct s_file
 {
@@ -78,7 +78,7 @@ typedef struct s_ray
 	int		map_y;
 }	t_ray;
 
-typedef struct	s_structs
+typedef struct s_structs
 {
 	struct s_cub3d	*cub3d;
 	struct s_player	*game;
@@ -120,7 +120,10 @@ void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist);
 
 void	raycasting_engine(t_structs *s);
 
-void	move_x(char **maze, t_player *game, bool forward);
-void	move_y(char **maze, t_player *game, bool left);
+void	move_right(char **maze, t_player *game);
+void	move_left(char **maze, t_player *game);
+void	move_forward(char **maze, t_player *game);
+void	move_backward(char **maze, t_player *game);
+void	rotate(t_player *game, bool left);
 
 #endif

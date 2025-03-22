@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:06:38 by lgandari          #+#    #+#             */
-/*   Updated: 2025/03/22 16:27:50 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:27:22 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	bind_keys(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		close_window(s->mlx);
 	else if (keydata.key == MLX_KEY_A)
-		move_y(s->cub3d->maze, s->game, true);
+		move_left(s->cub3d->maze, s->game);
 	else if (keydata.key == MLX_KEY_D)
-		move_y(s->cub3d->maze, s->game, false);
+		move_right(s->cub3d->maze, s->game);
 	else if (keydata.key == MLX_KEY_W)
-		move_x(s->cub3d->maze, s->game, true);
+		move_forward(s->cub3d->maze, s->game);
 	else if (keydata.key == MLX_KEY_S)
-		move_x(s->cub3d->maze, s->game, false);
+		move_backward(s->cub3d->maze, s->game);
 	else if (keydata.key == MLX_KEY_RIGHT)
-		printf("rigth arrow\n");
+		rotate(s->game, false);
 	else if (keydata.key == MLX_KEY_LEFT)
-		printf("left arrow\n");
+		rotate(s->game, true);
 }

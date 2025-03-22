@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/08 10:37:13 by aquinter          #+#    #+#              #
-#    Updated: 2025/03/22 15:07:45 by aquinter         ###   ########.fr        #
+#    Updated: 2025/03/22 16:57:23 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	raycasting/hooks.c				\
 	raycasting/render.c				\
 	raycasting/raycasting.c			\
-	raycasting/walk.c				\
+	raycasting/movements.c			\
 	)
 
 OBJS	= $(SRCS:.c=.o)
