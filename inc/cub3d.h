@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/20 22:43:28 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:58:37 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,14 @@ typedef struct s_ray
 	int		map_y;
 }	t_ray;
 
+typedef struct	s_structs
+{
+	struct s_cub3d	*cub3d;
+	struct s_player	*game;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+}	t_structs;
+
 void	init_structs(t_cub3d *cub3d, t_file *file);
 void	free_structs(t_cub3d *cub3d, t_file *file);
 void	free_llist(t_llist *llist);
@@ -107,6 +115,6 @@ void	close_on_esc(mlx_key_data_t keydata, void *param);
 int		get_rgba(int r, int g, int b, int a);
 void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist);
 
-void	raycasting_engine(t_player *game, t_cub3d *cub3d, mlx_image_t *img);
+void	raycasting_engine(void *param);
 
 #endif

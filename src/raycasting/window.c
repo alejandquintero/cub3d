@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:38:45 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/21 17:38:47 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:59:52 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ bool	open_window(t_cub3d *cub3d)
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_player	game;
+	t_structs	s;
 
 	init_player(&game, cub3d);
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
@@ -38,9 +39,11 @@ bool	open_window(t_cub3d *cub3d)
 		mlx_terminate(mlx);
 		exit(EXIT_FAILURE);
 	}
-	raycasting_engine(&game, cub3d, img);
-	mlx_image_to_window(mlx, img, 0, 0);
-	mlx_key_hook(mlx, close_on_esc, mlx);
+	s.cub3d = cub3d;
+	s.img = img;
+	s.game = &game;
+	s.mlx = mlx;
+	mlx_loop_hook(mlx, raycasting_engine, &s);
 	mlx_loop(mlx);
 	return (true);
 }
