@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/22 17:54:22 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:07:34 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define WIDTH 1512
 # define HEIGHT 982
 # define MOVE_SPEED 0.1
+# define FOV 0.66
 
 typedef struct s_file
 {

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:38:45 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/22 17:45:34 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/23 17:07:48 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	init_player(t_player *game, t_cub3d *cub3d)
 	game->pos_y = cub3d->dir_player_y + 0.5;
 	game->dir_y = 0;
 	game->dir_x = -1;
-	game->plane_x = game->dir_y * 0.66;
-	game->plane_y = game->dir_x * 0.66;
+	game->plane_x = game->dir_y * FOV;
+	game->plane_y = game->dir_x * FOV;
 }
 
 bool	open_window(t_cub3d *cub3d)
