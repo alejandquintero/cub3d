@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/24 15:59:32 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:03:04 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,12 @@ void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist);
 
 void	raycasting_engine(t_structs *s);
 
-void	move_right(char **maze, t_player *game);
-void	move_left(char **maze, t_player *game);
-void	move_forward(char **maze, t_player *game);
-void	move_backward(char **maze, t_player *game);
+void	move(char **maze, t_player *game, double x, double y);
+
+// void	move_right(char **maze, t_player *game);
+// void	move_left(char **maze, t_player *game);
+// void	move_forward(char **maze, t_player *game);
+// void	move_backward(char **maze, t_player *game);
 void	rotate(t_player *game, bool left);
 
 #endif

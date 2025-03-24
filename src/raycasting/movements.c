@@ -6,74 +6,22 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:50:27 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/24 15:53:23 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:05:14 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-void	move_forward(char **maze, t_player *game)
+void	move(char **maze, t_player *game, double x, double y)
 {
 	double	new_pos_x;
 	double	new_pos_y;
-	double	y;
 
-	y = game->pos_y;
-	new_pos_x = game->pos_x + game->dir_x * MOVE_SPEED;
-	if (maze[(int)y][(int)new_pos_x] && \
-		maze[(int)y][(int)new_pos_x] != '1')
+	new_pos_x = game->pos_x + x * MOVE_SPEED;
+	if (maze[(int)game->pos_y][(int)new_pos_x] && \
+		maze[(int)game->pos_y][(int)new_pos_x] != '1')
 		game->pos_x = new_pos_x;
-	new_pos_y = game->pos_y + game->dir_y * MOVE_SPEED;
-	if (maze[(int)new_pos_y][(int)game->pos_x] && \
-		maze[(int)new_pos_y][(int)game->pos_x] != '1')
-		game->pos_y = new_pos_y;
-}
-
-void	move_backward(char **maze, t_player *game)
-{
-	double	new_pos_x;
-	double	new_pos_y;
-	double	y;
-
-	y = game->pos_y;
-	new_pos_x = game->pos_x - game->dir_x * MOVE_SPEED;
-	if (maze[(int)y][(int)new_pos_x] && \
-		maze[(int)y][(int)new_pos_x] != '1')
-		game->pos_x = new_pos_x;
-	new_pos_y = game->pos_y - game->dir_y * MOVE_SPEED;
-	if (maze[(int)new_pos_y][(int)game->pos_x] && \
-		maze[(int)new_pos_y][(int)game->pos_x] != '1')
-		game->pos_y = new_pos_y;
-}
-
-void	move_right(char **maze, t_player *game)
-{
-	double	new_pos_x;
-	double	new_pos_y;
-	double	y;
-
-	y = game->pos_y;
-	new_pos_x = game->pos_x + game->plane_x * MOVE_SPEED;
-	if (maze[(int)y][(int)new_pos_x] && \
-		maze[(int)y][(int)new_pos_x] != '1')
-		game->pos_x = new_pos_x;
-	new_pos_y = game->pos_y + game->plane_y * MOVE_SPEED;
-	if (maze[(int)new_pos_y][(int)game->pos_x] && \
-		maze[(int)new_pos_y][(int)game->pos_x] != '1')
-		game->pos_y = new_pos_y;
-}
-
-void	move_left(char **maze, t_player *game)
-{
-	double	new_pos_x;
-	double	new_pos_y;
-	double	y;
-
-	y = game->pos_y;
-	new_pos_x = game->pos_x - game->plane_x * MOVE_SPEED;
-	if (maze[(int)y][(int)new_pos_x] && maze[(int)y][(int)new_pos_x] != '1')
-		game->pos_x = new_pos_x;
-	new_pos_y = game->pos_y - game->plane_y * MOVE_SPEED;
+	new_pos_y = game->pos_y + y * MOVE_SPEED;
 	if (maze[(int)new_pos_y][(int)game->pos_x] && \
 		maze[(int)new_pos_y][(int)game->pos_x] != '1')
 		game->pos_y = new_pos_y;
