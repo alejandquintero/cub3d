@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 15:25:47 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/08 17:27:05 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:32:47 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,6 @@ char	**llist_to_array(t_llist *llist)
 	return (strs);
 }
 
-char	*extract_line(char **str)
-{
-	char	*line;
-	int		i;
-
-	i = 0;
-	while ((*str)[i] && (*str)[i] != '\n')
-		i++;
-	line = ft_substr(*str, 0, i);
-	*str += i;
-	if (!line)
-		return (print_error("Error\nMemory allocation failed\n", \
-			false), NULL);
-	return (line);
-}
-
 void	free_llist(t_llist *llist)
 {
 	t_llist	*current_next;
@@ -103,4 +87,25 @@ void	free_llist(t_llist *llist)
 		free(current);
 		current = current_next;
 	}
+}
+
+t_llist	*build_ttlist(char *cursor)
+{
+	t_llist	*llist;
+	char	*line;
+
+	llist = NULL;
+	while (*cursor)
+	{
+		line = extract_line(&cursor);
+		if (!line)
+			return (free_llist(llist), NULL);
+		if (!append_llist(&llist, line))
+			return (free(line), NULL);
+		cursor++;
+	}
+	if (!llist)
+		return (print_error("Error\nNonexistent maze\n", \
+			false), NULL);
+	return (llist);
 }

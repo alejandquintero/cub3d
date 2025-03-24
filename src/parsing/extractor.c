@@ -75,6 +75,29 @@ static bool	process_metadata_line(char **cursor, t_file *file, t_cub3d *cub3d)
 	return (free(id), free(value), success);
 }
 
+bool	extract_maze(t_cub3d *cub3d, char *cursor)
+{
+	char	**maze;
+	t_llist	*llist;
+
+	while (*cursor && *cursor == '\n')
+		cursor++;
+	llist = build_ttlist(cursor);
+	if (!llist)
+		return (false);
+	maze = llist_to_array(llist);
+	free_llist(llist);
+	if (!maze)
+		return (false);
+	if (!validate_maze(cub3d, maze))
+		return (free_matrix(maze), false);
+	if (!cub3d->dir_player)
+		return (print_error("Error\nPlayer position required\n", \
+			false), free_matrix(maze), false);
+	cub3d->maze = maze;
+	return (true);
+}
+
 bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 {
 	char	*cursor;

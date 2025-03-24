@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/23 17:07:34 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:24:10 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef struct s_structs
 	mlx_image_t		*img;
 }	t_structs;
 
+t_llist	*build_ttlist(char *cursor);
+
 void	init_structs(t_cub3d *cub3d, t_file *file);
 void	free_structs(t_cub3d *cub3d, t_file *file);
 void	free_llist(t_llist *llist);
@@ -110,6 +112,7 @@ bool	store_color(t_cub3d *cub3d, const char *id, char *rgb_str);
 bool	is_invalid_char(char c);
 bool	is_player(char c);
 bool	is_allowed_char(char c);
+bool	validate_maze(t_cub3d *cub3d, char **maze);
 
 bool	open_window(t_cub3d *cub3d);
 
