@@ -113,6 +113,5 @@ bool	extract_metadata(t_file *file, t_cub3d *cub3d)
 	}
 	if (!extract_maze(cub3d, cursor))
 		return (false);
-	open_window(cub3d);
 	return (true);
 }

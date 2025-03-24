@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 14:50:27 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/22 17:51:02 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:53:23 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	rotate(t_player *game, bool left)
 	double	old_plane_x;
 	double	angle;
 
-	angle = MOVE_SPEED;
+	angle = ROTATION_SPEED;
 	old_dir_x = game->dir_x;
 	old_plane_x = game->plane_x;
 	if (left == true)

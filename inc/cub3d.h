@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/24 15:24:10 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:59:32 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 
 # define WIDTH 1512
 # define HEIGHT 982
-# define MOVE_SPEED 0.1
+# define MOVE_SPEED 0.05
+# define ROTATION_SPEED 0.05
 # define FOV 0.66
 
 typedef struct s_file
@@ -95,8 +96,8 @@ void	free_structs(t_cub3d *cub3d, t_file *file);
 void	free_llist(t_llist *llist);
 void	print_cub3d(const t_cub3d *cub3d);
 
-void	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
 void	initialize_positions(int positions[8][2], int i, int j);
+bool	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
 bool	append_llist(t_llist **llist, char *line);
 bool	extract_metadata(t_file *file, t_cub3d *cub3d);
 bool	extract_maze(t_cub3d *cub3d, char *cursor);
