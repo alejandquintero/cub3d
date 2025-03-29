@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 22:15:36 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/24 15:33:01 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:05:09 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ bool	handle_player(t_cub3d *cub3d, char **maze, int i, int j)
 	if (!cub3d->dir_player)
 	{
 		cub3d->dir_player = maze[i][j];
-		cub3d->dir_player_x = j;
-		cub3d->dir_player_y = i;
+		cub3d->pos_player_x = j;
+		cub3d->pos_player_y = i;
 		return (true);
 	}
 	return (false);

@@ -6,19 +6,42 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:38:45 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/23 17:07:48 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:09:38 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
+static void	set_dir_vectors(t_player *game, t_cub3d *cub3d)
+{
+	if (cub3d->dir_player == 'N')
+	{
+		game->dir_y = -1;
+		game->dir_x = 0;
+	}
+	else if (cub3d->dir_player == 'S')
+	{
+		game->dir_y = 1;
+		game->dir_x = 0;
+	}
+	else if (cub3d->dir_player == 'E')
+	{
+		game->dir_y = 0;
+		game->dir_x = 1;
+	}
+	else if (cub3d->dir_player == 'W')
+	{
+		game->dir_y = 0;
+		game->dir_x = -1;
+	}
+}
+
 static void	init_player(t_player *game, t_cub3d *cub3d)
 {
-	game->pos_x = cub3d->dir_player_x + 0.5;
-	game->pos_y = cub3d->dir_player_y + 0.5;
-	game->dir_y = 0;
-	game->dir_x = -1;
-	game->plane_x = game->dir_y * FOV;
+	set_dir_vectors(game, cub3d);
+	game->pos_x = cub3d->pos_player_x + 0.5;
+	game->pos_y = cub3d->pos_player_y + 0.5;
+	game->plane_x = game->dir_y * FOV * -1;
 	game->plane_y = game->dir_x * FOV;
 }
 
