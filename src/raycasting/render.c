@@ -6,43 +6,42 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:13:55 by lgandari          #+#    #+#             */
-/*   Updated: 2025/03/22 16:15:12 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/29 14:03:26 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-int	get_rgba(int r, int g, int b, int a)
+int	get_rgba(int *rgb, int op)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
+	return (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | op);
 }
 
-void	render_col(mlx_image_t *img, int x, int side, double perp_wall_dist)
+void	render_col(t_structs *s, int x, int side)
 {
 	int	line_height;
 	int	draw_start;
 	int	draw_end;
 	int	y;
-	int	opacity;
+	int	rgb_walls[3];
 
-	line_height = (int)(HEIGHT / perp_wall_dist);
+	rgb_walls[0] = 169;
+	rgb_walls[1] = 169;
+	rgb_walls[2] = 169;
+	line_height = (int)(HEIGHT / s->ray->perp_wall_dist);
 	draw_start = -line_height / 2 + HEIGHT / 2;
 	draw_end = line_height / 2 + HEIGHT / 2;
 	if (draw_start < 0)
 		draw_start = 0;
 	if (draw_end >= HEIGHT)
 		draw_end = HEIGHT - 1;
-	if (side == 1)
-		opacity = 128;
-	else
-		opacity = 255;
 	y = 0;
 	while (y < draw_start)
-		mlx_put_pixel(img, x, y++, get_rgba(173, 216, 230, 255));
+		mlx_put_pixel(s->img, x, y++, get_rgba(s->cub3d->ceil_rgb, 255));
 	while (y < draw_end)
-		mlx_put_pixel(img, x, y++, get_rgba(169, 169, 169, opacity));
+		mlx_put_pixel(s->img, x, y++, get_rgba(rgb_walls, (128 * (side + 1))));
 	while (y < HEIGHT)
-		mlx_put_pixel(img, x, y++, get_rgba(152, 251, 152, 255));
+		mlx_put_pixel(s->img, x, y++, get_rgba(s->cub3d->floor_rgb, 255));
 }
 
 void	render_view(void *param)

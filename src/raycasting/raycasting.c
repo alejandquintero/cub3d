@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:16:05 by lgandari          #+#    #+#             */
-/*   Updated: 2025/03/22 16:26:11 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:41:38 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ void	raycasting_engine(t_structs *s)
 			s->ray->perp_wall_dist = s->ray->side_dist_x - s->ray->delta_dist_x;
 		else
 			s->ray->perp_wall_dist = s->ray->side_dist_y - s->ray->delta_dist_y;
-		render_col(s->img, x, side, s->ray->perp_wall_dist);
+		render_col(s, x, side);
 	}
 }
