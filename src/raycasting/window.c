@@ -68,6 +68,7 @@ bool	open_window(t_cub3d *cub3d)
 	s.mlx = mlx;
 	s.game = &game;
 	s.ray = &ray;
+	mlx_close_hook(mlx, close_window, &s);
 	mlx_loop_hook(mlx, render_view, &s);
 	mlx_loop(mlx);
 	return (true);

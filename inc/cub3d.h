@@ -116,7 +116,7 @@ bool	is_allowed_char(char c);
 bool	validate_maze(t_cub3d *cub3d, char **maze);
 
 bool	open_window(t_cub3d *cub3d);
-
+void	close_window(void *param);
 void	bind_keys(mlx_key_data_t keydata, void *param);
 
 int		get_rgba(int *rgb, int op);
