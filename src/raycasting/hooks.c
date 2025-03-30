@@ -12,9 +12,16 @@
 
 #include "../../inc/cub3d.h"
 
-void	close_window(mlx_t *mlx)
+void	close_window(void *param)
 {
-	mlx_terminate(mlx);
+	t_structs	*s;
+
+	s = (t_structs *)param;
+	if (s->img)
+		mlx_delete_image(s->mlx, s->img);
+	if (s->mlx)
+		mlx_terminate(s->mlx);
+	free_structs(s->cub3d, NULL);
 	exit(EXIT_SUCCESS);
 }
 
@@ -24,7 +31,7 @@ void	bind_keys(mlx_key_data_t keydata, void *param)
 
 	s = (t_structs *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		close_window(s->mlx);
+		close_window(s);
 	else if (keydata.key == MLX_KEY_A)
 		move(s->cub3d->maze, s->game, -s->game->plane_x, -s->game->plane_y);
 	else if (keydata.key == MLX_KEY_D)
