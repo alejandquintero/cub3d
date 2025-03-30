@@ -120,7 +120,7 @@ void	close_window(void *param);
 void	bind_keys(mlx_key_data_t keydata, void *param);
 
 int		get_rgba(int *rgb, int op);
-void	render_view(void *param);
+void	game_loop(void *param);
 void	render_col(t_structs *s, int x, int side);
 
 void	raycasting_engine(t_structs *s);

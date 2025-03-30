@@ -44,19 +44,10 @@ void	render_col(t_structs *s, int x, int side)
 		mlx_put_pixel(s->img, x, y++, get_rgba(s->cub3d->floor_rgb, 255));
 }
 
-void	render_view(void *param)
+void	game_loop(void *param)
 {
 	t_structs	*s;
 
 	s = (t_structs *)param;
-	mlx_delete_image(s->mlx, s->img);
-	s->img = mlx_new_image(s->mlx, WIDTH, HEIGHT);
-	if (!s->img)
-	{
-		mlx_terminate(s->mlx);
-		exit(EXIT_FAILURE);
-	}
 	raycasting_engine(s);
-	mlx_image_to_window(s->mlx, s->img, 0, 0);
-	mlx_key_hook(s->mlx, bind_keys, s);
 }

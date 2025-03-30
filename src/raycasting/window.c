@@ -45,31 +45,35 @@ static void	init_player(t_player *game, t_cub3d *cub3d)
 	game->plane_y = game->dir_x * FOV;
 }
 
+static void	setup_game_context(t_structs *s, t_cub3d *cub3d, \
+	t_player *game, t_ray *ray)
+{
+	s->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+	if (!s->mlx)
+		exit(EXIT_FAILURE);
+	s->img = mlx_new_image(s->mlx, WIDTH, HEIGHT);
+	if (!s->img)
+	{
+		mlx_terminate(s->mlx);
+		exit(EXIT_FAILURE);
+	}
+	s->cub3d = cub3d;
+	s->game = game;
+	s->ray = ray;
+	mlx_image_to_window(s->mlx, s->img, 0, 0);
+}
+
 bool	open_window(t_cub3d *cub3d)
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
 	t_player	game;
 	t_ray		ray;
 	t_structs	s;
 
 	init_player(&game, cub3d);
-	mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
-	if (!mlx)
-		exit(EXIT_FAILURE);
-	img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	if (!img)
-	{
-		mlx_terminate(mlx);
-		exit(EXIT_FAILURE);
-	}
-	s.cub3d = cub3d;
-	s.img = img;
-	s.mlx = mlx;
-	s.game = &game;
-	s.ray = &ray;
-	mlx_close_hook(mlx, close_window, &s);
-	mlx_loop_hook(mlx, render_view, &s);
-	mlx_loop(mlx);
+	setup_game_context(&s, cub3d, &game, &ray);
+	mlx_key_hook(s.mlx, bind_keys, &s);
+	mlx_close_hook(s.mlx, close_window, &s);
+	mlx_loop_hook(s.mlx, game_loop, &s);
+	mlx_loop(s.mlx);
 	return (true);
 }
