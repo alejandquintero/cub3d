@@ -1,7 +1,7 @@
-NO ./textures/doom/Doom1.xpm42
-EA ./textures/doom/Doom2.xpm42
-WE ./textures/doom/Doom3.xpm42
-SO ./textures/doom/Doom4.xpm42
+NO ./textures/winter.png
+EA ./textures/autumn.png
+WE ./textures/spring.png
+SO ./textures/summer.png
 
 F 200, 0, 27 
 C 140, 50, 0        
