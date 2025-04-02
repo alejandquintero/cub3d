@@ -68,6 +68,9 @@ bool	is_valid_id(const char *id, const char **valid_ids)
 
 bool	store_texture(t_cub3d *cub3d, const char *id, char *path)
 {
+	if (check_extension(path, ".xpm42") == -1)
+		return (print_error("Error\nInvalid texture extension. \
+			Must be .xmp42\n", false), false);
 	if (!is_valid_texture(path))
 		return (print_error("Error\nInvalid texture path.\n", false), false);
 	if (ft_strcmp(id, "NO") == 0)
