@@ -12,11 +12,33 @@
 
 #include "../../inc/cub3d.h"
 
+static void	free_textures(t_structs *s)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (s->textures[i].img)
+		{
+			mlx_delete_image(s->mlx, s->textures[i].img);
+			s->textures[i].img = NULL;
+		}
+		if (s->textures[i].texture)
+		{
+			mlx_delete_xpm42(s->textures[i].texture);
+			s->textures[i].texture = NULL;
+		}
+		i++;
+	}
+}
+
 void	close_window(void *param)
 {
 	t_structs	*s;
 
 	s = (t_structs *)param;
+	free_textures(s);
 	if (s->img)
 		mlx_delete_image(s->mlx, s->img);
 	if (s->mlx)

@@ -80,6 +80,12 @@ typedef struct s_ray
 	int		map_y;
 }	t_ray;
 
+typedef struct s_img
+{
+	xpm_t		*texture;
+	mlx_image_t	*img;
+}	t_img;
+
 typedef struct s_structs
 {
 	struct s_cub3d	*cub3d;
@@ -87,6 +93,7 @@ typedef struct s_structs
 	struct s_ray	*ray;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
+	t_img			textures[4];
 }	t_structs;
 
 t_llist	*build_ttlist(char *cursor);

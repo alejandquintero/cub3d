@@ -45,13 +45,43 @@ static void	init_player(t_player *game, t_cub3d *cub3d)
 	game->plane_y = game->dir_x * FOV;
 }
 
+bool	load_textures(t_structs *s)
+{
+	int	i;
+
+	s->textures[0].texture = mlx_load_xpm42(s->cub3d->north_tex);
+	s->textures[1].texture = mlx_load_xpm42(s->cub3d->south_tex);
+	s->textures[2].texture = mlx_load_xpm42(s->cub3d->east_tex);
+	s->textures[3].texture = mlx_load_xpm42(s->cub3d->west_tex);
+	i = 0;
+	while (i < 4)
+	{
+		if (!s->textures[i].texture)
+			return (print_error("Error\nFailed to load texture.\n", false), \
+				false);
+		s->textures[i].img = mlx_texture_to_image(s->mlx, \
+			&s->textures[i].texture->texture);
+		if (!s->textures[i].img)
+			return (print_error("Error\nFailed to convert texture.\n", false), \
+				false);
+		i++;
+	}
+	return (true);
+}
+
 static void	setup_game_context(t_structs *s, t_cub3d *cub3d, \
 	t_player *game, t_ray *ray)
 {
+	s->cub3d = cub3d;
 	s->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
 	if (!s->mlx)
 		exit(EXIT_FAILURE);
 	s->img = mlx_new_image(s->mlx, WIDTH, HEIGHT);
+	if (!load_textures(s))
+	{
+		mlx_terminate(s->mlx);
+		exit(EXIT_FAILURE);
+	}
 	if (!s->img)
 	{
 		mlx_terminate(s->mlx);
