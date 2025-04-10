@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/29 13:36:06 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:55:09 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ bool	open_window(t_cub3d *cub3d);
 void	close_window(void *param);
 void	bind_keys(mlx_key_data_t keydata, void *param);
 
-int		get_rgba(int *rgb, int op);
 void	game_loop(void *param);
 void	render_col(t_structs *s, int x, int side);
 
