@@ -20,70 +20,51 @@ uint32_t	get_rgba(int *rgb, int op)
 t_img	get_texture(t_structs *s, t_ray *ray, int side)
 {
 	if (side == 0 && ray->ray_dir_x <= 0)
-	{
-		// W
 		return (s->textures[3]);
-	}
 	else if (side == 0 && ray->ray_dir_x > 0)
-	{
-		// E
 		return (s->textures[2]);
-	}
 	else if (side == 1 && ray->ray_dir_y > 0)
-	{
-		// S
 		return (s->textures[1]);
-	}
 	else
-	{
-		// N
 		return (s->textures[0]);
-	}
 }
 
 static void	render_tex(t_structs *s, int side, int line_height, int draw_start, int draw_end, int x)
 {
-	t_img 		tex;
+	t_img		tex;
 	int			y;
 	int			tex_width;
 	int			tex_height;
 	int			tex_x;
-	int 		tex_y;
+	int			tex_y;
 	int			rgb[3];
 	double		wall_x;
 	double		step;
 	double		tex_pos;
 	uint32_t	color;
 	uint32_t	index;
-	
+
 	tex = get_texture(s, s->ray, side);
 	tex_height = tex.img->height;
 	tex_width = tex.img->width;
-	
 	if (side == 0)
 		wall_x = s->game->pos_y + s->ray->perp_wall_dist * s->ray->ray_dir_y;
 	else
 		wall_x = s->game->pos_x + s->ray->perp_wall_dist * s->ray->ray_dir_x;
 	wall_x -= floor(wall_x);
-
 	tex_x = (int)(wall_x * tex_width);
-
-	if ((side == 0 && s->ray->ray_dir_x < 0) || (side == 1 && s->ray->ray_dir_y > 0))
+	if ((side == 0 && s->ray->ray_dir_x < 0) || \
+		(side == 1 && s->ray->ray_dir_y > 0))
 		tex_x = tex_width - tex_x - 1;
-
 	step = 1.0 * tex_height / line_height;
-
 	tex_pos = (draw_start - HEIGHT / 2 + line_height / 2) * step;
-
 	y = draw_start;
 	while (y < draw_end)
 	{
 		tex_y = (int)tex_pos;
 		tex_pos += step;
-
 		color = 0;
 		index = (tex_width * tex_y + tex_x) * 4;
-
 		rgb[0] = tex.img->pixels[index];
 		rgb[1] = tex.img->pixels[index + 1];
 		rgb[2] = tex.img->pixels[index + 2];
