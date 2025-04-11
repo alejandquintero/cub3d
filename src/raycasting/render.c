@@ -68,7 +68,7 @@ static void	render_tex(t_structs *s, int side, int line_height, int draw_start, 
 
 	tex_x = (int)(wall_x * tex_width);
 
-	if ((side == 0 && s->ray->ray_dir_x > 0) || (side == 1 && s->ray->ray_dir_y < 0))
+	if ((side == 0 && s->ray->ray_dir_x < 0) || (side == 1 && s->ray->ray_dir_y > 0))
 		tex_x = tex_width - tex_x - 1;
 
 	step = 1.0 * tex_height / line_height;
