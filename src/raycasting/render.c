@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 18:13:55 by lgandari          #+#    #+#             */
-/*   Updated: 2025/04/08 22:00:47 by aquinter         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   render.c										   :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: aquinter <aquinter@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/21 18:13:55 by lgandari		  #+#	#+#			 */
+/*   Updated: 2025/04/08 22:00:47 by aquinter		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
@@ -29,33 +29,55 @@ t_img	get_texture(t_structs *s, t_ray *ray, int side)
 		return (s->textures[0]);
 }
 
-static void	render_tex(t_structs *s, int side, int line_height, int draw_start, int draw_end, int x)
+static double	get_wall_hitpoint(t_structs *s, int side)
 {
-	t_img		tex;
-	int			y;
-	int			tex_width;
-	int			tex_height;
-	int			tex_x;
-	int			tex_y;
-	int			rgb[3];
-	double		wall_x;
-	double		step;
-	double		tex_pos;
-	uint32_t	color;
-	uint32_t	index;
-
-	tex = get_texture(s, s->ray, side);
-	tex_height = tex.img->height;
-	tex_width = tex.img->width;
 	if (side == 0)
-		wall_x = s->game->pos_y + s->ray->perp_wall_dist * s->ray->ray_dir_y;
+		return ((s->game->pos_y + s->ray->perp_wall_dist * s->ray->ray_dir_y) - \
+			floor(s->game->pos_y + s->ray->perp_wall_dist * s->ray->ray_dir_y));
 	else
-		wall_x = s->game->pos_x + s->ray->perp_wall_dist * s->ray->ray_dir_x;
-	wall_x -= floor(wall_x);
+		return ((s->game->pos_x + s->ray->perp_wall_dist * s->ray->ray_dir_x) - \
+			floor(s->game->pos_x + s->ray->perp_wall_dist * s->ray->ray_dir_x));
+}
+
+static int	get_texture_x(t_structs *s, int side, int tex_width, double wall_x)
+{
+	int	tex_x;
+
 	tex_x = (int)(wall_x * tex_width);
 	if ((side == 0 && s->ray->ray_dir_x < 0) || \
 		(side == 1 && s->ray->ray_dir_y > 0))
 		tex_x = tex_width - tex_x - 1;
+	return (tex_x);
+}
+
+static uint32_t	get_texture_color(t_img *tex, int tex_x, int tex_y)
+{
+	int	index;
+	int	rgb[3];
+
+	index = (tex->img->width * tex_y + tex_x) * 4;
+	rgb[0] = tex->img->pixels[index];
+	rgb[1] = tex->img->pixels[index + 1];
+	rgb[2] = tex->img->pixels[index + 2];
+	return (get_rgba(rgb, tex->img->pixels[index + 3]));
+}
+
+static void	render_tex(t_structs *s, int side, int line_height, int draw_start, int draw_end, int x)
+{
+	t_img	tex;
+	int		tex_width;
+	int		tex_height;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+	int		y;
+
+	tex = get_texture(s, s->ray, side);
+	tex_width = tex.img->width;
+	tex_height = tex.img->height;
+	double wall_x = get_wall_hitpoint(s, side);
+	tex_x = get_texture_x(s, side, tex_width, wall_x);
 	step = 1.0 * tex_height / line_height;
 	tex_pos = (draw_start - HEIGHT / 2 + line_height / 2) * step;
 	y = draw_start;
@@ -63,13 +85,7 @@ static void	render_tex(t_structs *s, int side, int line_height, int draw_start, 
 	{
 		tex_y = (int)tex_pos;
 		tex_pos += step;
-		color = 0;
-		index = (tex_width * tex_y + tex_x) * 4;
-		rgb[0] = tex.img->pixels[index];
-		rgb[1] = tex.img->pixels[index + 1];
-		rgb[2] = tex.img->pixels[index + 2];
-		color = get_rgba(rgb, tex.img->pixels[index + 3]);
-		mlx_put_pixel(s->img, x, y, color);
+		mlx_put_pixel(s->img, x, y, get_texture_color(&tex, tex_x, tex_y));
 		y++;
 	}
 }
