@@ -29,7 +29,7 @@ t_img	get_texture(t_structs *s, t_ray *ray, int side)
 		return (s->textures[0]);
 }
 
-static double	get_wall_hitpoint(t_structs *s, int side)
+static double	get_wall_hit_point(t_structs *s, int side)
 {
 	if (side == 0)
 		return ((s->game->pos_y + s->ray->perp_wall_dist * s->ray->ray_dir_y) - \
@@ -72,11 +72,12 @@ static void	render_tex(t_structs *s, int side, int line_height, int draw_start, 
 	double	step;
 	double	tex_pos;
 	int		y;
+	double	wall_x;
 
 	tex = get_texture(s, s->ray, side);
 	tex_width = tex.img->width;
 	tex_height = tex.img->height;
-	double wall_x = get_wall_hitpoint(s, side);
+	wall_x = get_wall_hit_point(s, side);
 	tex_x = get_texture_x(s, side, tex_width, wall_x);
 	step = 1.0 * tex_height / line_height;
 	tex_pos = (draw_start - HEIGHT / 2 + line_height / 2) * step;
