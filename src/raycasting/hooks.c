@@ -44,6 +44,7 @@ void	close_window(void *param)
 	if (s->mlx)
 		mlx_close_window(s->mlx);
 	free_structs(s->cub3d, NULL);
+	s->should_exit = true;
 }
 
 void	bind_keys(mlx_key_data_t keydata, void *param)

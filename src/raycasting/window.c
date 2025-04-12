@@ -90,6 +90,7 @@ static void	setup_game_context(t_structs *s, t_cub3d *cub3d, \
 	s->cub3d = cub3d;
 	s->game = game;
 	s->ray = ray;
+	s->should_exit = false;
 	mlx_image_to_window(s->mlx, s->img, 0, 0);
 }
 

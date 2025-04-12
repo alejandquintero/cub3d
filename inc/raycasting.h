@@ -56,6 +56,7 @@ typedef struct s_structs
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_img			textures[4];
+	bool			should_exit;
 }	t_structs;
 
 typedef struct s_draw_params

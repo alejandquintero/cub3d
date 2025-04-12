@@ -77,6 +77,8 @@ void	game_loop(void *param)
 	t_structs	*s;
 
 	s = (t_structs *)param;
+	if (s->should_exit)
+		mlx_terminate(s->mlx);
 	if (mlx_is_key_down(s->mlx, MLX_KEY_W))
 		move(s->cub3d->maze, s->game, s->game->dir_x, s->game->dir_y);
 	if (mlx_is_key_down(s->mlx, MLX_KEY_S))
