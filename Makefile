@@ -43,6 +43,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	raycasting/window.c				\
 	raycasting/hooks.c				\
 	raycasting/render.c				\
+	raycasting/render_utils.c		\
 	raycasting/raycasting.c			\
 	raycasting/movements.c			\
 	)

@@ -120,42 +120,48 @@ typedef struct s_texture_mapping
 	int		screen_y;
 }	t_texture_mapping;
 
-t_llist	*build_ttlist(char *cursor);
+t_llist		*build_ttlist(char *cursor);
 
-void	init_structs(t_cub3d *cub3d, t_file *file);
-void	free_structs(t_cub3d *cub3d, t_file *file);
-void	free_llist(t_llist *llist);
-void	print_cub3d(const t_cub3d *cub3d);
+void		init_structs(t_cub3d *cub3d, t_file *file);
+void		free_structs(t_cub3d *cub3d, t_file *file);
+void		free_llist(t_llist *llist);
+void		print_cub3d(const t_cub3d *cub3d);
 
-void	initialize_positions(int positions[8][2], int i, int j);
-bool	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
-bool	append_llist(t_llist **llist, char *line);
-bool	extract_metadata(t_file *file, t_cub3d *cub3d);
-bool	extract_maze(t_cub3d *cub3d, char *cursor);
+void		initialize_positions(int positions[8][2], int i, int j);
+bool		parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
+bool		append_llist(t_llist **llist, char *line);
+bool		extract_metadata(t_file *file, t_cub3d *cub3d);
+bool		extract_maze(t_cub3d *cub3d, char *cursor);
 
-char	**llist_to_array(t_llist *llist);
+char		**llist_to_array(t_llist *llist);
 
-char	*extract_line(char **str);
+char		*extract_line(char **str);
 
-bool	is_space(char c);
-bool	is_valid_id(const char *id, const char **valid_ids);
-bool	store_texture(t_cub3d *cub3d, const char *id, char *path);
-bool	store_color(t_cub3d *cub3d, const char *id, char *rgb_str);
-bool	is_invalid_char(char c);
-bool	is_player(char c);
-bool	is_allowed_char(char c);
-bool	validate_maze(t_cub3d *cub3d, char **maze);
+bool		is_space(char c);
+bool		is_valid_id(const char *id, const char **valid_ids);
+bool		store_texture(t_cub3d *cub3d, const char *id, char *path);
+bool		store_color(t_cub3d *cub3d, const char *id, char *rgb_str);
+bool		is_invalid_char(char c);
+bool		is_player(char c);
+bool		is_allowed_char(char c);
+bool		validate_maze(t_cub3d *cub3d, char **maze);
 
-bool	open_window(t_cub3d *cub3d);
-void	close_window(void *param);
-void	bind_keys(mlx_key_data_t keydata, void *param);
+bool		open_window(t_cub3d *cub3d);
+void		close_window(void *param);
+void		bind_keys(mlx_key_data_t keydata, void *param);
 
-void	game_loop(void *param);
-void	render_col(t_structs *s, int x, int side);
+void		game_loop(void *param);
+void		render_col(t_structs *s, int x, int side);
 
-void	raycasting_engine(t_structs *s);
+void		raycasting_engine(t_structs *s);
 
-void	move(char **maze, t_player *game, double x, double y);
-void	rotate(t_player *game, bool left);
+void		move(char **maze, t_player *game, double x, double y);
+void		rotate(t_player *game, bool left);
+
+uint32_t	get_rgba(int *rgb, int op);
+t_img		get_texture(t_structs *s, t_ray *ray, int side);
+double		get_wall_hitpoint(t_structs *s, int side);
+int			get_texture_x(t_structs *s, int side, int tex_width, double wall_x);
+uint32_t	get_texture_color(t_img *tex, int tex_x, int tex_y);
 
 #endif
