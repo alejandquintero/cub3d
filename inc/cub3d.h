@@ -28,8 +28,8 @@
 
 # define WIDTH 1512
 # define HEIGHT 982
-# define MOVE_SPEED 0.08
-# define ROTATION_SPEED 0.07
+# define MOVE_SPEED 0.09
+# define ROTATION_SPEED 0.08
 # define FOV 0.66
 
 void	init_structs(t_cub3d *cub3d, t_file *file);

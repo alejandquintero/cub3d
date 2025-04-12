@@ -77,5 +77,19 @@ void	game_loop(void *param)
 	t_structs	*s;
 
 	s = (t_structs *)param;
+	if (mlx_is_key_down(s->mlx, MLX_KEY_W))
+		move(s->cub3d->maze, s->game, s->game->dir_x, s->game->dir_y);
+	if (mlx_is_key_down(s->mlx, MLX_KEY_S))
+		move(s->cub3d->maze, s->game, -s->game->dir_x, -s->game->dir_y);
+	if (mlx_is_key_down(s->mlx, MLX_KEY_A))
+		move(s->cub3d->maze, s->game, -s->game->plane_x, -s->game->plane_y);
+	if (mlx_is_key_down(s->mlx, MLX_KEY_D))
+		move(s->cub3d->maze, s->game, s->game->plane_x, s->game->plane_y);
+	if (mlx_is_key_down(s->mlx, MLX_KEY_LEFT))
+		rotate(s->game, true);
+	if (mlx_is_key_down(s->mlx, MLX_KEY_RIGHT))
+		rotate(s->game, false);
+	if (mlx_is_key_down(s->mlx, MLX_KEY_ESCAPE))
+		close_window(s);
 	raycasting_engine(s);
 }

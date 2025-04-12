@@ -101,7 +101,6 @@ bool	open_window(t_cub3d *cub3d)
 
 	init_player(&game, cub3d);
 	setup_game_context(&s, cub3d, &game, &ray);
-	mlx_key_hook(s.mlx, bind_keys, &s);
 	mlx_close_hook(s.mlx, close_window, &s);
 	mlx_loop_hook(s.mlx, game_loop, &s);
 	mlx_loop(s.mlx);
