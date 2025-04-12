@@ -61,7 +61,7 @@ $(NAME) : $(OBJS)
 	
 	@echo "$(GREEN)Compiling cub3D...$(NC)"
 	@$(CC) $(CFLAGS) $(OBJS) \
-		-I ../../inc/cub3d.h $(MLX42) -ldl -lglfw -pthread -lm $(LIBFT) -o $(NAME)
+		-I inc $(MLX42) -ldl -lglfw -pthread -lm $(LIBFT) -o $(NAME)
 	
 	@echo "$(GREEN)Enjoy!$(NC)"
 

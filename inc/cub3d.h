@@ -22,146 +22,18 @@
 # include "../libft_v2/inc/extra.h"
 # include "../libft_v2/inc/get_next_line.h"
 
+# include "structs.h"
+# include "parsing.h"
+# include "raycasting.h"
+
 # define WIDTH 1512
 # define HEIGHT 982
 # define MOVE_SPEED 0.05
 # define ROTATION_SPEED 0.05
 # define FOV 0.66
 
-typedef struct s_file
-{
-	const char	*valid_ids[7];
-	char		*content;
-}	t_file;
-
-typedef struct s_cub3d
-{
-	char	**maze;
-	char	*north_tex;
-	char	*south_tex;
-	char	*west_tex;
-	char	*east_tex;
-	int		*floor_rgb;
-	int		*ceil_rgb;
-	int		pos_player_x;
-	int		pos_player_y;
-	char	dir_player;
-}	t_cub3d;
-
-typedef struct s_llist
-{
-	struct s_llist	*next;
-	char			*line;
-}	t_llist;
-
-typedef struct s_player
-{
-	double	pos_x;
-	double	pos_y;
-	double	dir_y;
-	double	dir_x;
-	double	plane_x;
-	double	plane_y;
-}	t_player;
-
-typedef struct s_ray
-{
-	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	perp_wall_dist;
-	int		step_x;
-	int		step_y;
-	int		map_x;
-	int		map_y;
-}	t_ray;
-
-typedef struct s_img
-{
-	xpm_t		*texture;
-	mlx_image_t	*img;
-}	t_img;
-
-typedef struct s_structs
-{
-	struct s_cub3d	*cub3d;
-	struct s_player	*game;
-	struct s_ray	*ray;
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	t_img			textures[4];
-}	t_structs;
-
-typedef struct s_draw_params
-{
-	int				line_height;
-	int				draw_start;
-	int				draw_end;
-}	t_draw_params;
-
-typedef struct s_texture_info
-{
-	t_img	tex;
-	int		width;
-	int		height;
-	int		tex_x;
-}	t_texture_info;
-
-typedef struct s_texture_mapping
-{
-	double	wall_hit;
-	double	step;
-	double	tex_pos;
-	int		tex_y;
-	int		screen_y;
-}	t_texture_mapping;
-
-t_llist		*build_ttlist(char *cursor);
-
-void		init_structs(t_cub3d *cub3d, t_file *file);
-void		free_structs(t_cub3d *cub3d, t_file *file);
-void		free_llist(t_llist *llist);
-void		print_cub3d(const t_cub3d *cub3d);
-
-void		initialize_positions(int positions[8][2], int i, int j);
-bool		parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d);
-bool		append_llist(t_llist **llist, char *line);
-bool		extract_metadata(t_file *file, t_cub3d *cub3d);
-bool		extract_maze(t_cub3d *cub3d, char *cursor);
-
-char		**llist_to_array(t_llist *llist);
-
-char		*extract_line(char **str);
-
-bool		is_space(char c);
-bool		is_valid_id(const char *id, const char **valid_ids);
-bool		store_texture(t_cub3d *cub3d, const char *id, char *path);
-bool		store_color(t_cub3d *cub3d, const char *id, char *rgb_str);
-bool		is_invalid_char(char c);
-bool		is_player(char c);
-bool		is_allowed_char(char c);
-bool		validate_maze(t_cub3d *cub3d, char **maze);
-
-bool		open_window(t_cub3d *cub3d);
-void		close_window(void *param);
-void		bind_keys(mlx_key_data_t keydata, void *param);
-
-void		game_loop(void *param);
-void		render_col(t_structs *s, int x, int side);
-
-void		raycasting_engine(t_structs *s);
-
-void		move(char **maze, t_player *game, double x, double y);
-void		rotate(t_player *game, bool left);
-
-uint32_t	get_rgba(int *rgb, int op);
-t_img		get_texture(t_structs *s, t_ray *ray, int side);
-double		get_wall_hitpoint(t_structs *s, int side);
-int			get_texture_x(t_structs *s, int side, int tex_width, double wall_x);
-uint32_t	get_texture_color(t_img *tex, int tex_x, int tex_y);
+void	init_structs(t_cub3d *cub3d, t_file *file);
+void	free_structs(t_cub3d *cub3d, t_file *file);
+void	free_llist(t_llist *llist);
 
 #endif
