@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 10:39:44 by aquinter          #+#    #+#             */
-/*   Updated: 2025/04/08 21:55:09 by aquinter         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   cub3d.h											:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: aquinter <aquinter@student.42.fr>		  +#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/02/08 10:39:44 by aquinter		  #+#	#+#			 */
+/*   Updated: 2025/04/08 21:55:09 by aquinter		 ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
@@ -95,6 +95,13 @@ typedef struct s_structs
 	mlx_image_t		*img;
 	t_img			textures[4];
 }	t_structs;
+
+typedef struct s_draw_params
+{
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+}	t_draw_params;
 
 t_llist	*build_ttlist(char *cursor);
 
