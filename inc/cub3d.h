@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   cub3d.h											:+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: aquinter <aquinter@student.42.fr>		  +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2025/02/08 10:39:44 by aquinter		  #+#	#+#			 */
-/*   Updated: 2025/04/08 21:55:09 by aquinter		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/12 19:11:04 by lgandari          #+#    #+#             */
+/*   Updated: 2025/04/12 19:11:06 by lgandari         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
@@ -102,6 +102,23 @@ typedef struct s_draw_params
 	int				draw_start;
 	int				draw_end;
 }	t_draw_params;
+
+typedef struct s_texture_info
+{
+	t_img	tex;
+	int		width;
+	int		height;
+	int		tex_x;
+}	t_texture_info;
+
+typedef struct s_texture_mapping
+{
+	double	wall_hit;
+	double	step;
+	double	tex_pos;
+	int		tex_y;
+	int		screen_y;
+}	t_texture_mapping;
 
 t_llist	*build_ttlist(char *cursor);
 

@@ -96,30 +96,25 @@ static void	draw_floor(t_structs *s, int x, int draw_end)
 
 static void	render_tex(t_structs *s, int side, int x, t_draw_params params)
 {
-	t_img	tex;
-	int		tex_width;
-	int		tex_height;
-	int		tex_x;
-	int		tex_y;
-	double	step;
-	double	tex_pos;
-	double	wall_x;
-	int		y;
+	t_texture_info		tex_info;
+	t_texture_mapping	mapping;
 
-	tex = get_texture(s, s->ray, side);
-	tex_width = tex.img->width;
-	tex_height = tex.img->height;
-	wall_x = get_wall_hitpoint(s, side);
-	tex_x = get_texture_x(s, side, tex_width, wall_x);
-	step = 1.0 * tex_height / params.line_height;
-	tex_pos = (params.draw_start - HEIGHT / 2 + params.line_height / 2) * step;
-	y = params.draw_start;
-	while (y < params.draw_end)
+	tex_info.tex = get_texture(s, s->ray, side);
+	tex_info.width = tex_info.tex.img->width;
+	tex_info.height = tex_info.tex.img->height;
+	mapping.wall_hit = get_wall_hitpoint(s, side);
+	tex_info.tex_x = get_texture_x(s, side, tex_info.width, mapping.wall_hit);
+	mapping.step = 1.0 * tex_info.height / params.line_height;
+	mapping.tex_pos = (params.draw_start - HEIGHT / 2 + \
+		params.line_height / 2) * mapping.step;
+	mapping.screen_y = params.draw_start;
+	while (mapping.screen_y < params.draw_end)
 	{
-		tex_y = (int)tex_pos;
-		tex_pos += step;
-		mlx_put_pixel(s->img, x, y, get_texture_color(&tex, tex_x, tex_y));
-		y++;
+		mapping.tex_y = (int)mapping.tex_pos;
+		mapping.tex_pos += mapping.step;
+		mlx_put_pixel(s->img, x, mapping.screen_y, \
+			get_texture_color(&tex_info.tex, tex_info.tex_x, mapping.tex_y));
+		mapping.screen_y++;
 	}
 }
 
