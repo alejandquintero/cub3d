@@ -13,6 +13,7 @@
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
 
+# include <stdbool.h>
 # include "structs.h"
 
 typedef struct s_player

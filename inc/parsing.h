@@ -13,6 +13,7 @@
 #ifndef PARSING_H
 # define PARSING_H
 
+# include <stdbool.h>
 # include "structs.h"
 
 // Parsing main
