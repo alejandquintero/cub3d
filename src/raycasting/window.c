@@ -105,5 +105,11 @@ bool	open_window(t_cub3d *cub3d)
 	mlx_close_hook(s.mlx, close_window, &s);
 	mlx_loop_hook(s.mlx, game_loop, &s);
 	mlx_loop(s.mlx);
+	free_textures(&s);
+	if (s.img)
+		mlx_delete_image(s.mlx, s.img);
+	if (s.mlx)
+		mlx_terminate(s.mlx);
+	free_structs(s.cub3d, NULL);
 	return (true);
 }

@@ -34,6 +34,7 @@
 
 void	init_structs(t_cub3d *cub3d, t_file *file);
 void	free_structs(t_cub3d *cub3d, t_file *file);
+void	free_textures(t_structs *s);
 void	free_llist(t_llist *llist);
 
 #endif
