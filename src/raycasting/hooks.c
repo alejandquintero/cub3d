@@ -39,7 +39,14 @@ void	close_window(void *param)
 
 	s = (t_structs *)param;
 	s->should_exit = true;
-	mlx_close_window(s->mlx);
+	free_textures(s);
+	if (s->img)
+		mlx_delete_image(s->mlx, s->img);
+	if (s->mlx)
+		mlx_close_window(s->mlx);
+	if (s->mlx)
+		mlx_terminate(s->mlx);
+	free_structs(s->cub3d, NULL);
 }
 
 void	bind_keys(mlx_key_data_t keydata, void *param)
