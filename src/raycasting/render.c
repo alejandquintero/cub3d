@@ -93,5 +93,6 @@ void	game_loop(void *param)
 		rotate(s->game, false);
 	if (mlx_is_key_down(s->mlx, MLX_KEY_ESCAPE))
 		close_window(s);
-	raycasting_engine(s);
+	else
+		raycasting_engine(s);
 }
