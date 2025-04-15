@@ -1,0 +1,12 @@
+NI ./textures/winter.xpm42
+E ./textures/autumn.xpm42
+A ./textures/spring.xpm42
+P ./textures/summer.xpm42
+
+F 150, 100, 192
+C 171, 200, 212
+
+1111111111
+11001N0111
+1111101111
+1111111111

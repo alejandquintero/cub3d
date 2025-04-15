@@ -1,0 +1,21 @@
+F 200, 0, 27 
+
+
+NO ./textures/winter.xpm42
+SO ./textures/summer.xpm42
+
+EA ./textures/autumn.xpm42
+
+WE 												./textures/spring.xpm42
+
+C 140,                             50, 					0
+
+
+
+
+
+
+111111111
+100000001
+1000000W1
+111111111
