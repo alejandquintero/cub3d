@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:38:45 by aquinter          #+#    #+#             */
-/*   Updated: 2025/03/29 13:09:38 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/04/15 20:10:34 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	setup_game_context(t_structs *s, t_cub3d *cub3d, \
 	t_player *game, t_ray *ray)
 {
 	s->cub3d = cub3d;
-	s->mlx = mlx_init(WIDTH, HEIGHT, "cub3d", false);
+	s->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	if (!s->mlx)
 		exit(EXIT_FAILURE);
 	s->img = mlx_new_image(s->mlx, WIDTH, HEIGHT);
