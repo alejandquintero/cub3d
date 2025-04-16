@@ -97,3 +97,27 @@ void	raycasting_engine(t_structs *s)
 		render_col(s, x, side);
 	}
 }
+
+bool	load_textures(t_structs *s)
+{
+	int	i;
+
+	s->textures[0].texture = mlx_load_xpm42(s->cub3d->north_tex);
+	s->textures[1].texture = mlx_load_xpm42(s->cub3d->south_tex);
+	s->textures[2].texture = mlx_load_xpm42(s->cub3d->east_tex);
+	s->textures[3].texture = mlx_load_xpm42(s->cub3d->west_tex);
+	i = 0;
+	while (i < 4)
+	{
+		if (!s->textures[i].texture)
+			return (print_error("Error\nFailed to load texture.\n", false), \
+				false);
+		s->textures[i].img = mlx_texture_to_image(s->mlx, \
+			&s->textures[i].texture->texture);
+		if (!s->textures[i].img)
+			return (print_error("Error\nFailed to convert texture.\n", false), \
+				false);
+		i++;
+	}
+	return (true);
+}

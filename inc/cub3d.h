@@ -32,10 +32,14 @@
 # define ROTATION_SPEED 0.08
 # define FOV 0.66
 # define MARGIN 0.1
+# define MOUSE_SENSITIVITY 0.002
 
 void	init_structs(t_cub3d *cub3d, t_file *file);
 void	free_structs(t_cub3d *cub3d, t_file *file);
 void	free_textures(t_structs *s);
 void	free_llist(t_llist *llist);
+
+void	handle_mouse_rotation(t_structs *s);
+bool	load_textures(t_structs *s);
 
 #endif

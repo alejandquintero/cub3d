@@ -46,6 +46,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	raycasting/render_utils.c		\
 	raycasting/raycasting.c			\
 	raycasting/movements.c			\
+	raycasting/mouse.c				\
 	)
 
 OBJS	= $(SRCS:.c=.o)

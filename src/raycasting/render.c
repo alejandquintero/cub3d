@@ -81,6 +81,7 @@ void	game_loop(void *param)
 	t_structs	*s;
 
 	s = (t_structs *)param;
+	handle_mouse_rotation(s);
 	if (s->should_exit || s->cub3d == NULL || s->cub3d->maze == NULL)
 		return ;
 	if (mlx_is_key_down(s->mlx, MLX_KEY_W))
