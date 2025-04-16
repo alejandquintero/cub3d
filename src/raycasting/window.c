@@ -77,6 +77,11 @@ static void	setup_game_context(t_structs *s, t_cub3d *cub3d, \
 	if (!s->mlx)
 		exit(EXIT_FAILURE);
 	s->img = mlx_new_image(s->mlx, WIDTH, HEIGHT);
+	if (!s->img)
+	{
+		mlx_terminate(s->mlx);
+		exit(EXIT_FAILURE);
+	}
 	if (!load_textures(s))
 	{
 		mlx_terminate(s->mlx);

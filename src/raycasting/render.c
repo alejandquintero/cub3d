@@ -22,7 +22,7 @@ static t_draw_params	compute_draw_params(t_structs *s)
 	if (params.draw_start < 0)
 		params.draw_start = 0;
 	if (params.draw_end >= HEIGHT)
-		params.draw_end = HEIGHT - 1;
+		params.draw_end = HEIGHT;
 	return (params);
 }
 
@@ -54,6 +54,10 @@ static void	draw_background(t_structs *s, int x, int start_y, int *rgb)
 {
 	int	y;
 
+	if (x < 0 || x >= WIDTH || start_y < 0 || start_y >= HEIGHT)
+		return ;
+	if (!rgb)
+		return ;
 	y = start_y;
 	while (y < HEIGHT)
 	{
