@@ -54,3 +54,16 @@ bool	parse_maze(char *maze_path, t_file *file, t_cub3d *cub3d)
 			false), false);
 	return (extract_metadata(file, cub3d));
 }
+
+bool	store_color(t_cub3d *cub3d, const char *id, char *rgb_str)
+{
+	int	rgb[3];
+
+	if (!is_valid_rgb_str(rgb_str, rgb))
+		return (print_error("Error\nInvalid color.\n", false), false);
+	if (ft_strcmp(id, "F") == 0)
+		cub3d->floor_rgb = ft_memdup(rgb, sizeof(rgb));
+	else if (ft_strcmp(id, "C") == 0)
+		cub3d->ceil_rgb = ft_memdup(rgb, sizeof(rgb));
+	return (true);
+}

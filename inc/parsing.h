@@ -41,6 +41,7 @@ bool	is_invalid_char(char c);
 bool	is_player(char c);
 bool	is_space(char c);
 void	initialize_positions(int positions[8][2], int i, int j);
+bool	is_valid_rgb_str(const char *str, int *rgb_num);
 
 // Print utils
 void	print_cub3d(const t_cub3d *cub3d);

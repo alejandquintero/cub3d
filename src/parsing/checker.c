@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   checker.c										  :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2025/02/28 20:08:28 by lgandari		  #+#	#+#			 */
-/*   Updated: 2025/02/28 20:10:14 by lgandari		 ###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/10 09:45:21 by lgandari          #+#    #+#             */
+/*   Updated: 2025/05/10 09:45:23 by lgandari         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
@@ -23,7 +23,7 @@ static bool	is_valid_texture(const char *path)
 	return (true);
 }
 
-static bool	is_valid_rgb_str(const char *str, int *rgb_num)
+bool	is_valid_rgb_str(const char *str, int *rgb_num)
 {
 	int		i;
 	int		j;
@@ -66,6 +66,19 @@ bool	is_valid_id(const char *id, const char **valid_ids)
 	return (false);
 }
 
+static bool	assign_texture(char **dest, const char *id, const char *path)
+{
+	if (*dest != NULL)
+	{
+		print_error("Error\nDuplicate texture ID: ", false);
+		write(2, id, ft_strlen(id));
+		write(2, "\n", 1);
+		return (false);
+	}
+	*dest = ft_strdup(path);
+	return (true);
+}
+
 bool	store_texture(t_cub3d *cub3d, const char *id, char *path)
 {
 	if (check_extension(path, ".xpm42") == -1)
@@ -74,25 +87,12 @@ bool	store_texture(t_cub3d *cub3d, const char *id, char *path)
 	if (!is_valid_texture(path))
 		return (print_error("Error\nInvalid texture path.\n", false), false);
 	if (ft_strcmp(id, "NO") == 0)
-		cub3d->north_tex = ft_strdup(path);
+		return (assign_texture(&cub3d->north_tex, id, path));
 	else if (ft_strcmp(id, "EA") == 0)
-		cub3d->east_tex = ft_strdup(path);
+		return (assign_texture(&cub3d->east_tex, id, path));
 	else if (ft_strcmp(id, "WE") == 0)
-		cub3d->west_tex = ft_strdup(path);
+		return (assign_texture(&cub3d->west_tex, id, path));
 	else if (ft_strcmp(id, "SO") == 0)
-		cub3d->south_tex = ft_strdup(path);
-	return (true);
-}
-
-bool	store_color(t_cub3d *cub3d, const char *id, char *rgb_str)
-{
-	int	rgb[3];
-
-	if (!is_valid_rgb_str(rgb_str, rgb))
-		return (print_error("Error\nInvalid color.\n", false), false);
-	if (ft_strcmp(id, "F") == 0)
-		cub3d->floor_rgb = ft_memdup(rgb, sizeof(rgb));
-	else if (ft_strcmp(id, "C") == 0)
-		cub3d->ceil_rgb = ft_memdup(rgb, sizeof(rgb));
-	return (true);
+		return (assign_texture(&cub3d->south_tex, id, path));
+	return (false);
 }
