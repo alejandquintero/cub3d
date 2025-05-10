@@ -27,12 +27,11 @@ bool	is_surrounding_valid(char **maze, int i, int j)
 	{
 		x = positions[k][0];
 		y = positions[k][1];
-		if (maze[x] && maze[x][y])
-		{
-			if (is_invalid_char(maze[x][y]))
-				return (false);
-		}
-		else
+		if (x < 0 || maze[x] == NULL)
+			return (false);
+		if (y < 0 || y > (int)ft_strlen(maze[x]))
+			return (false);
+		if (is_invalid_char(maze[x][y]))
 			return (false);
 		k++;
 	}
